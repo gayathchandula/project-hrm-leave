@@ -1,21 +1,21 @@
 import React, { useEffect, useState} from 'react';
 import axios from 'axios';
 import {
-    CBadge,
-    CCard,
-    CCardBody,
-    CCardHeader,
-    CCol,
-    CDataTable,
-    CButton,
-    CForm,
-    CSelect,
-    CFormGroup,
-    CFormText,
-    CCardFooter,
-    CInputCheckbox,
-    CLabel,
-    CRow,
+  CBadge,
+  CCard,
+  CCardBody,
+  CCardHeader,
+  CCol,
+  CDataTable,
+  CButton,
+  CForm,
+  CSelect,
+  CFormGroup,
+  CFormText,
+  CCardFooter,
+  CInputCheckbox,
+  CLabel,
+  CRow, CInput,
 } from '@coreui/react'
 import { DocsLink } from 'src/reusable'
 
@@ -30,7 +30,7 @@ const getBadge = status => {
     default: return 'primary'
   }
 }
-const fields = ['Employee Type','Shift Type', 'Leave Type', 'Number of Days',{
+const fields = ['id','employeeTypeId', 'leavetypeId', 'numberOfDays',{
   key: 'show_details',
   label: 'Action',
 
@@ -46,6 +46,7 @@ const Tables = () => {
   const [numberOfDays, setnumberOfDays] = useState([]);
   const [listData, setListData] = useState({ lists: [] });
   const [listData1, setListData1] = useState({ lists: [] });
+  const [listData2, setListData2] = useState({ lists: [] });
   const token = localStorage.getItem("Token")
   const orgid = localStorage.getItem("id")
   const [data,setdata] = useState([{
@@ -70,7 +71,7 @@ const Tables = () => {
     setnumberOfDays( e.target.value );
   };
   const handleCheckChieldElement = (id) => {
-      setleavetypeId(id)
+    setleavetypeId(id);
 
 
   }
@@ -80,6 +81,7 @@ const Tables = () => {
       numberOfDays: id});
 
   };
+
 
   const headers = {
     headers: {
@@ -103,8 +105,16 @@ const Tables = () => {
         setListData1({ lists: result.data.data.EmployeeTypeDetails  });
         console.log(result)
     };
+    const fetchData2 = async () => {
+      const result = await axios(
+        `https://hrm-innovigent.herokuapp.com/api/v1/organizations/${orgid}/LeaveConfig/list`,headers
+      );
+      setListData2({ lists: result.data.data.LeaveConfigsDetails});
+
+    };
     fetchData();
     fetchData1();
+    fetchData2();
   }, []);
 
   const submit = async (e) => {
@@ -180,52 +190,102 @@ axios.post(`https://hrm-innovigent.herokuapp.com/api/v1/organizations/${orgid}/o
                       <CFormText>Please Select Employee type</CFormText>
                   </CCol>
                 </CFormGroup>
+                  <CFormGroup row>
+                    <CCol md="3">
+                      <CLabel htmlFor="select">Leave Type</CLabel>
+                    </CCol>
+                    <CCol xs="12" md="9">
+                      <CSelect
+                        name="Countries"
+                        onChange={onChangeleavetypeId}
+                        value={leavetypeId}
+                      >
+                        {listData.lists.map((country, key) => (
+                          <option key={key} value={country.id}>
+                            {country.LeaveTypeName}
+                          </option>
+                        ))}
+                      </CSelect>
+                      <CFormText>Please Select Leave type</CFormText>
+                    </CCol>
+                  </CFormGroup>
+                  <CFormGroup row >
+                    <CCol md="3">
+                      <CLabel htmlFor="text-input">No of Days</CLabel>
+                    </CCol>
+                    <CCol xs="12" md="9">
+                      <CSelect custom name="numberOfDays" onChange={onChangenumberOfDays} value={numberOfDays}>
+                        <option value="0">0-30 days</option>
+                        <option value="1" >1</option>
+                        <option value="2" >2</option>
+                        <option value="3" >3</option>
+                        <option value="4" >4</option>
+                        <option value="5" >5</option>
+                        <option value="6" >6</option>
+                        <option value="7" >7</option>
+                        <option value="8" >8</option>
+                        <option value="9" >9</option>
+                        <option value="10" >10</option>
+                        <option value="11" >11</option>
+                        <option value="12" >12</option>
+                        <option value="13" >13</option>
+                        <option value="14" >14</option>
+                        <option value="15" >15</option>
+                        <option value="16" >16</option>
+                        <option value="17" >17</option>
+                        <option value="18" >18</option>
+                        <option value="19" >19</option>
+                        <option value="20" >20</option>
 
-                {listData.lists.map((country, key) => (
-                  <>
-                <CFormGroup variant="checkbox"  className="my-2">
-                  <CInputCheckbox
-                   onChange={() =>{handleInputChange(country.id)}}
-                  />
+                      </CSelect>
+                      <CFormText>select between 0-30 days</CFormText>
+                    </CCol>
+                  </CFormGroup>
+          {/*     {listData.lists.map((country, key) => (*/}
+          {/*        <>*/}
+          {/*      <CFormGroup variant="checkbox"  className="my-2">*/}
+          {/*        <CInputCheckbox*/}
 
+          {/*          onChange={() =>{handleCheckChieldElement(country.id)}}*/}
 
-            <CLabel  htmlFor="fade" name="leavetypeId" value={country.id} >Leave Type {country.LeaveTypeName}</CLabel>
+          {/*        />*/}
+          {/*        <CLabel  htmlFor="fade" name="leavetypeId" value={country.id} >Leave Type {country.LeaveTypeName}</CLabel>*/}
 
-                <CFormGroup row >
-                  <CCol md="3">
-                    <CLabel htmlFor="text-input">No of Days </CLabel>
-                  </CCol>
-                  <CCol xs="12" md="9">
-                  <CSelect custom name="numberOfDays" id="numberOfDays" >
-                      <option value="0">0-30 days</option>
-                      <option value="1" >1</option>
-                      <option value="2" >2</option>
-                      <option value="3" >3</option>
-                      <option value="4" >4</option>
-                      <option value="5" >5</option>
-                      <option value="6" >6</option>
-                      <option value="7" >7</option>
-                      <option value="8" >8</option>
-                      <option value="9" >9</option>
-                      <option value="10" >10</option>
-                      <option value="11" >11</option>
-                      <option value="12" >12</option>
-                      <option value="13" >13</option>
-                      <option value="14" >14</option>
-                      <option value="15" >15</option>
-                      <option value="16" >16</option>
-                      <option value="17" >17</option>
-                      <option value="18" >18</option>
-                      <option value="19" >19</option>
-                      <option value="20" >20</option>
+          {/*      <CFormGroup row >*/}
+          {/*        <CCol md="3">*/}
+          {/*          <CLabel htmlFor="text-input">No of Days </CLabel>*/}
+          {/*        </CCol>*/}
+          {/*        <CCol xs="12" md="9">*/}
+          {/*        <CSelect custom name="numberOfDays" id="numberOfDays" >*/}
+          {/*            <option value="0">0-30 days</option>*/}
+          {/*            <option value="1" >1</option>*/}
+          {/*            <option value="2" >2</option>*/}
+          {/*            <option value="3" >3</option>*/}
+          {/*            <option value="4" >4</option>*/}
+          {/*            <option value="5" >5</option>*/}
+          {/*            <option value="6" >6</option>*/}
+          {/*            <option value="7" >7</option>*/}
+          {/*            <option value="8" >8</option>*/}
+          {/*            <option value="9" >9</option>*/}
+          {/*            <option value="10" >10</option>*/}
+          {/*            <option value="11" >11</option>*/}
+          {/*            <option value="12" >12</option>*/}
+          {/*            <option value="13" >13</option>*/}
+          {/*            <option value="14" >14</option>*/}
+          {/*            <option value="15" >15</option>*/}
+          {/*            <option value="16" >16</option>*/}
+          {/*            <option value="17" >17</option>*/}
+          {/*            <option value="18" >18</option>*/}
+          {/*            <option value="19" >19</option>*/}
+          {/*            <option value="20" >20</option>*/}
 
-                    </CSelect>
-                    <CFormText>select between 0-30 days</CFormText>
-                  </CCol>
-                </CFormGroup>
-                </CFormGroup>
-           </>
-          ))}
+          {/*          </CSelect>*/}
+          {/*          <CFormText>select between 0-30 days</CFormText>*/}
+          {/*        </CCol>*/}
+          {/*      </CFormGroup>*/}
+          {/*      </CFormGroup>*/}
+          {/* </>*/}
+          {/*))}*/}
 
 
 
@@ -245,7 +305,6 @@ axios.post(`https://hrm-innovigent.herokuapp.com/api/v1/organizations/${orgid}/o
             </CCard>
 
           </CCol>
-
     </CRow>
 
       <CRow>
@@ -256,7 +315,7 @@ axios.post(`https://hrm-innovigent.herokuapp.com/api/v1/organizations/${orgid}/o
             </CCardHeader>
             <CCardBody>
             <CDataTable
-              items={listData.lists}
+              items={listData2.lists}
               fields={fields}
               hover
               striped
