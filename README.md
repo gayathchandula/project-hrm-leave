@@ -5,6 +5,7 @@
 [![npm package][npm-coreui-react-badge]][npm-coreui-react]
 [![NPM downloads][npm-coreui-react-download]][npm-coreui-react]  
 [![npm next][npm-next]][npm]
+[![Netlify Status](https://api.netlify.com/api/v1/badges/e66db1c2-90fa-4611-9781-0db552b68b83/deploy-status)](https://app.netlify.com/sites/hrm-innovigent/deploys)
 
 [npm-coreui]: https://www.npmjs.com/package/@coreui/coreui
 [npm-coreui-badge]: https://img.shields.io/npm/v/@coreui/coreui.png?style=flat-square
