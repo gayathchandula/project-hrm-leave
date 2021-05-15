@@ -21,7 +21,7 @@ import axios from 'axios';
 import CIcon from '@coreui/icons-react'
 
 const Login = () => {
-    const [email, setEmail] = useState();
+    const [employeeEmail, setEmail] = useState();
     const [password, setPassword] = useState();
     const [passwordConfirm, setpasswordConfirm] = useState();
     const [err, setErr] = useState();
@@ -42,8 +42,8 @@ const Login = () => {
           const submit = async (e) => {
               e.preventDefault();
               try{
-                  const body = ({email, password,passwordConfirm});
-                  const loginResponse = await axios.post("https://hrm-innovigent.herokuapp.com/api/v1/users/login", body);
+                  const body = ({employeeEmail, password,passwordConfirm});
+                  const loginResponse = await axios.post("https://hrm-innovigent.herokuapp.com/api/v1/employees/login", body);
 
 
                   localStorage.setItem("Token", loginResponse.data.data.token);
@@ -55,7 +55,7 @@ const Login = () => {
 
                 });
                   setLoading(loginResponse.data.data.loading)
-                console.log(loginResponse.data.data.user.organizations[0].id)
+                console.log(loginResponse.data)
                   history.push("/Dashboard");
 
 
