@@ -48,7 +48,7 @@ const Login = () => {
 
                   localStorage.setItem("Token", loginResponse.data.data.token);
                   localStorage.setItem("id", loginResponse.data.data.user.id);
-                  localStorage.setItem("id", loginResponse.data.data.user.organizationId);
+                  localStorage.setItem("org", loginResponse.data.data.user.organizationId);
                   setUserData({
                     id: loginResponse.data.data.user.id,
                     user: loginResponse.data.data.user.firstName,
@@ -56,8 +56,12 @@ const Login = () => {
 
                 });
                   setLoading(loginResponse.data.data.loading)
-                console.log(loginResponse.data)
-                  history.push("/Dashboard");
+                if(loginResponse.data.data.user.statusId === '50'){
+
+                  history.push("/dashboard");
+
+                }
+                history.push("/Employee Home");
 
 
               } catch(err) {
