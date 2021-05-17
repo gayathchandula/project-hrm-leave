@@ -1,402 +1,349 @@
-import React, { useState, useEffect } from 'react';
-import axios from "axios";
-import {Link,useHistory } from 'react-router-dom';
+import React from 'react'
 import {
-    CBadge,
-    CCard,
-    CCardBody,
-    CCardHeader,
-    CCol,
-    CDataTable,
-    CButton,
-    CTabs,
-    CTabContent,
-    CNavItem,
-    CNavLink,
-    CNav,
-    CTabPane,
-    CForm,
-    CSelect,
-    CFormGroup,
-    CFormText,
-    CCardFooter,
-    CInput,
-    CInputFile,
-  CSpinner,
-    CLabel,
-    CRow,
-} from '@coreui/react'
+  CBadge,
+  CCard,
+  CCardBody,
+  CCardFooter,
+  CCardHeader,
+  CCol,
+  CRow,
+  CCollapse,
+  CForm,
+  CFormGroup,
+  CLabel,
+  CFade,
+  CSwitch,
+  CLink
+} from  '@coreui/react'
+import CIcon from '@coreui/icons-react'
 import { DocsLink } from 'src/reusable'
+var imageName = require('src/assets/img_avatar.png')
 
-import usersData from '../../users/UsersData'
+const Cards = () => {
+  const [collapsed, setCollapsed] = React.useState(true)
+  const [showCard, setShowCard] = React.useState(true)
 
-const getBadge = status => {
-  switch (status) {
-    case 'Active': return 'success'
-    case 'Inactive': return 'secondary'
-    case 'Pending': return 'warning'
-    case 'Banned': return 'danger'
-    default: return 'primary'
-  }
-}
-const fields = ['id','firstName', 'lastName', 'shiftId','rfid', {
-  key: 'show_details',
-  label: 'Action',
-
-  sorter: false,
-  filter: false
-}]
-
-const Tables = () => {
-  const [file, setFile] = useState("");
-  const [firstName, setfirstName] = useState("");
-    const [lastName, setlastName] = useState("");
-    const [shiftId, setshiftId] = useState("");
-    const [employeeTypeId, setemployeeTypeId] = useState("");
-    const [rfid, setrfid] = useState("");
-    const [listData, setListData] = useState({ lists: [] });
-  const [listData1, setListData1] = useState({ lists: [] });
-  const [listData2, setListData2] = useState({ lists: [] });
-    const [loading, setLoading] = useState(false);
-
-    const handlefile = (e) => {
-      setFile(e.target.files[0]);
-
-    };
-    const onChangefirstName = (e) => {
-        setfirstName(e.target.value);
-    };
-    const onChangelastName = (e) => {
-        setlastName(e.target.value );
-    };
-    const onChangerfid = (e) => {
-        setrfid( e.target.value );
-    };
-    const onChangeshiftId = (e) => {
-        setshiftId( e.target.value );
-    };
-    const onChangeemployeeTypeId = (e) => {
-        setemployeeTypeId( e.target.value );
-    };
-
-    const token = localStorage.getItem("Token")
-    const headers = {
-        headers: {
-
-            "Authorization":`Bearer ${token}`
-        }
-    };
-    useEffect(() => {
-      const fetchData = async () => {
-          const result = await axios(
-              'https://hrm-innovigent.herokuapp.com/api/v1/organizations/1/employeeslist',headers
-          );
-          setListData({ lists: result.data.data.EmployeeList });
-          console.log(result)
-      };
-       const fetchData1 = async () => {
-        const result = await axios(
-            'https://hrm-innovigent.herokuapp.com/api/v1/organizations/1/emptypelist',headers
-        );
-        setListData1({ lists: result.data.data.EmployeeTypeDetails });
-        console.log(result)
-    };
-      const fetchData2 = async () => {
-        const result = await axios(
-            'https://hrm-innovigent.herokuapp.com/api/v1/organizations/1/shifttypes',headers
-        );
-        setListData2({ lists: result.data.data.shiftDetails });
-        setLoading(false);
-        console.log(result)
-    };
-
-      fetchData();
-      fetchData1();
-      fetchData2();
-  }, []);
-    const onSubmit = async (data) => {
-
-
-        const body = ({firstName, lastName,rfid,shiftId,employeeTypeId} );
-
-
-    const headers = {
-        headers: {
-
-          "Authorization":`Bearer ${token}`
-        }
-    };
-
-    axios.post("https://hrm-innovigent.herokuapp.com/api/v1/organizations/1/employees", body, headers)
-    .then((res) => {
-        if (res.status === 200) {
-          window.location.reload();
-            alert('upload success');
-        }
-    }).catch((err) => {
-        console.error(err);
-        alert('Error please try again');
-    });
-    };
-    const onFileSubmit = async () => {
-      const data = new FormData()
-      data.append('file', file)
-  const headers = {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        "Authorization":`Bearer ${token}`
-      }
-  };
-
-  axios.post("https://hrm-innovigent.herokuapp.com/api/v1/organizations/1/upload", data, headers)
-  .then((res) => {
-      if (res.status === 200) {
-        window.location.reload();
-          alert('upload success');
-      }
-  }).catch((err) => {
-      console.error(err);
-      alert('Error please try again');
-  });
-  };
-
-
-    const onDelete = async (rfid) => {
-
-
-      const body = ({rfid} );
-
-
-  const headers = {
-      headers: {
-
-        "Authorization":`Bearer ${token}`
-      }
-  };
-
-  axios.post("https://hrm-innovigent.herokuapp.com/api/v1/organizations/1/employeeslist/delete", body, headers)
-  .then((res) => {
-      if (res.status === 200) {
-        window.location.reload();
-          alert('delete success');
-      }
-  }).catch((err) => {
-      console.error(err);
-      alert('Error please try again');
-  });
-  };
-
-   if (loading) {
-    return (
-      <div style={{ padding: "10px 20px", textAlign: "center"}}>
-    <CSpinner />
-    </div>
-    )
-  }
   return (
-
     <>
-     <CTabs activeTab="Employeeform">
-      <CNav variant="tabs">
-        <CNavItem>
-          <CNavLink data-tab="Employeeform">
-            Employee
-          </CNavLink>
-        </CNavItem>
-        <CNavItem>
-          <CNavLink data-tab="file">
-            Employee upload
-          </CNavLink>
-        </CNavItem>
-      </CNav>
-      <CTabContent>
-      <CTabPane data-tab="Employeeform">
-    <CRow>
-        <CCol xs="12" md="10">
-            <CCard>
-              <CCardHeader>
-                Employee Form
-              </CCardHeader>
-              <CCardBody>
-                <CForm action="submit" method="post"  className="form-horizontal">
-
-
-
-                  <CFormGroup row>
-                    <CCol md="3">
-                      <CLabel htmlFor="text-input">First Name</CLabel>
-                    </CCol>
-                    <CCol xs="12" md="9">
-                      <CInput id="text-input" name="text-input" placeholder="First Name" value={firstName} onChange={onChangefirstName}/>
-                      <CFormText>Type your first name</CFormText>
-                    </CCol>
-                  </CFormGroup>
-
-                  <CFormGroup row>
-                    <CCol md="3">
-                      <CLabel htmlFor="text-input">Last Name</CLabel>
-                    </CCol>
-                    <CCol xs="12" md="9">
-                      <CInput id="text-input" name="text-input" placeholder="Last Name" value={lastName} onChange={onChangelastName} />
-                      <CFormText>Type your last name</CFormText>
-                    </CCol>
-                  </CFormGroup>
-
-                  <CFormGroup row>
-                  <CCol md="3">
-                    <CLabel htmlFor="text-input">Employee Type</CLabel>
-                  </CCol>
-                  <CCol xs="12" md="9">
-                  <CSelect
-                  name="Countries"
-                  onChange={e => onChangeemployeeTypeId(e)}
-                  value={employeeTypeId}
-                  >
-                  <option selected>Select the Employee type</option>
-                    {listData1.lists.map((country, key) => (
-            <option key={key} value={country.id}>
-              {country.Employee_type}
-            </option>
-          ))}
-                  </CSelect>
-                      <CFormText>Select your Employee type</CFormText>
-                  </CCol>
-                </CFormGroup>
-
-                <CFormGroup row>
-                  <CCol md="3">
-                    <CLabel htmlFor="select">Shift Type</CLabel>
-                  </CCol>
-                  <CCol xs="12" md="9">
-                  <CSelect
-                  name="Countries"
-                  onChange={onChangeshiftId}
-                  value={shiftId}
-                  >
-                  <option selected>Select the Shift</option>
-                    {listData2.lists.map((country, key) => (
-            <option key={key} value={country.id}>
-              {country.shiftName}
-            </option>
-          ))}
-                  </CSelect>
-                      <CFormText>Select your shift type</CFormText>
-                  </CCol>
-                </CFormGroup>
-                <CFormGroup row>
-                  <CCol md="3">
-                    <CLabel htmlFor="select">RFID</CLabel>
-                  </CCol>
-                  <CCol xs="12" md="9">
-                  <CInput id="text-input" name="text-input" placeholder="RFID" value={rfid} onChange={onChangerfid} />
-                      <CFormText>Type your RFID</CFormText>
-                  </CCol>
-                </CFormGroup>
-
-
-                </CForm>
-              </CCardBody>
-              <CCardFooter>
-                <CButton type="submit" size="lg" color="primary" onClick={onSubmit}> Submit</CButton>
-
-              </CCardFooter>
-            </CCard>
-
-          </CCol>
-
-        <CCol >
-          <Link to="/AddEmployeeType">
-            <CButton color="primary" className="mt-3" active tabIndex={-1}>Add New Employee Catergory </CButton>
-          </Link>
-        </CCol>
-
-    </CRow>
-
       <CRow>
-        <CCol>
+        <CCol xs="12" sm="6" md="4">
+          <CCard>
+
+            <CCardBody>
+
+              <label><img src={imageName.default} height="200px" /> </label>
+              <h1><b>Kasun charuka</b></h1>
+              <p>hello i am php developer</p>
+              <div className="class-header" color="black">
+                <p1>At work wor:<b>3 hours</b></p1>
+
+
+                <table className="table">
+                  <thead>
+                  <tr>
+
+                    <th scope="col">ATTENDANCE</th>
+                    <th scope="col">LEAVE</th>
+                    <th scope="col">AWARDS</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+
+                    <td>0</td>
+                    <td>0/0</td>
+                    <td>0</td>
+                  </tr>
+                  </tbody>
+                </table>
+
+              </div>
+
+
+            </CCardBody>
+          </CCard>
+        </CCol>
+        <CCol xs="12" sm="6" md="4">
           <CCard>
             <CCardHeader>
-              Employee Table
+              <b> <div class="ab1" color="p-3 mb-2 bg-transparent text-dark"/> PROFESIONAL INFO</b>
+
             </CCardHeader>
             <CCardBody>
-            <CDataTable
-              items={listData.lists}
-              fields={fields}
-              columnFilter
-              hover
-              striped
-              bordered
-              size="sm"
-              itemsPerPage={10}
-              pagination
-              scopedSlots = {{
-                'status':
-                  (item)=>(
-                    <td>
-                      <CBadge color={getBadge(item.status)}>
-                        {item.status}
-                      </CBadge>
-                    </td>
-                  ),
-                  'show_details':
-          (item, index)=>{
-            return (
+              <CFormGroup row>
+                <CCol md="3">
+                  <CLabel>Name</CLabel>
+                </CCol>
+                <CCol xs="12" md="9">
+                  <p className="form-control-static">Username</p>
+                </CCol>
+              </CFormGroup>
 
-              <td className="py-2">
-                <CButton
-                  color="danger"
-                  variant="outline"
-                  shape="square"
-                  size="sm"
-                  onClick={()=>{onDelete(item.rfid)}}
 
-                >
-                  Delete
-                </CButton>
-              </td>
-            )
-          }
-              }}
-            />
+              <CFormGroup row>
+                <CCol md="3">
+                  <CLabel>DOB</CLabel>
+                </CCol>
+                <CCol xs="12" md="9">
+                  <p className="form-control-static">Username</p>
+                </CCol>
+              </CFormGroup>
+
+
+
+              <CFormGroup row>
+                <CCol md="3">
+                  <CLabel>Gender</CLabel>
+                </CCol>
+                <CCol xs="12" md="9">
+                  <p className="form-control-static">Username</p>
+                </CCol>
+              </CFormGroup>
+
+
+              <CFormGroup row>
+                <CCol md="3">
+                  <CLabel>Email</CLabel>
+                </CCol>
+                <CCol xs="12" md="9">
+                  <p className="form-control-static">Username</p>
+                </CCol>
+              </CFormGroup>
+
+              <CFormGroup row>
+                <CCol md="3">
+                  <CLabel>Phone</CLabel>
+                </CCol>
+                <CCol xs="12" md="9">
+                  <p className="form-control-static">Username</p>
+                </CCol>
+              </CFormGroup>
+
+
+              <CFormGroup row>
+                <CCol md="3">
+                  <CLabel>Local Address</CLabel>
+                </CCol>
+                <CCol xs="12" md="9">
+                  <p className="form-control-static">Username</p>
+                </CCol>
+              </CFormGroup>
+
+
+              <CFormGroup row>
+                <CCol md="3">
+                  <CLabel>Permanent Address</CLabel>
+                </CCol>
+                <CCol xs="12" md="9">
+                  <p className="form-control-static">Username</p>
+                </CCol>
+              </CFormGroup>
+            </CCardBody>
+          </CCard>
+        </CCol>
+        <CCol xs="12" sm="6" md="4">
+          <CCard>
+            <CCardHeader>
+              <b>  NOTICE BORD</b>
+
+            </CCardHeader>
+            <CCardBody>
+              <div>
+                <div className="card">
+                  <div className="card-content">
+
+                    <div className="row mt-top">
+                      <div className="col xl4 l4 m6 s12">
+                        <p className="teal year_exp white-text">
+
+                          <strong>2016</strong> - Mar
+                          <strong>15</strong>
+                        </p>
+                      </div>
+                      <div className="col xl8 l8 m6 s12">
+                        <blockquote className="no-pad">
+                          <h6 className="no-pad mt-bottom">
+                            <strong>original tailan</strong>
+                          </h6>
+                          <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam,
+
+                          </p>
+                        </blockquote>
+                      </div>
+                    </div>
+                    <div className="row mt-top">
+                      <div className="col xl4 l4 m6 s12">
+                        <p className="teal year_exp white-text">
+
+                          <strong>2016</strong> - Mar
+                          <strong>17</strong>
+                        </p>
+                      </div>
+                      <div className="col xl8 l8 m6 s12">
+                        <blockquote className="no-pad">
+                          <h6 className="no-pad mt-bottom">
+                            <strong>Alice had been of late much</strong>
+                          </h6>
+                          <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam,
+                            earum doloribus dicta quod architecto, praesentium totam
+                            molestiae similique culpa repellat blanditiis nam facilis eius
+                            quaerat distinctio vitae, tenetur beatae repellendus?
+                          </p>
+                        </blockquote>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </CCardBody>
+          </CCard>
+        </CCol>
+        <CCol xs="12" sm="6" md="4">
+
+        </CCol>
+        <CCol xs="12" sm="6" md="4">
+          <CCard>
+            <CCardHeader>
+              <b>COMPANY DETAILS</b>
+
+
+            </CCardHeader>
+            <CCardBody>
+              <CFormGroup row>
+                <CCol md="3">
+                  <CLabel>Employee ID</CLabel>
+                </CCol>
+                <CCol xs="12" md="9">
+                  <p className="form-control-static">Username</p>
+                </CCol>
+              </CFormGroup>
+
+
+              <CFormGroup row>
+                <CCol md="3">
+                  <CLabel>Department</CLabel>
+                </CCol>
+                <CCol xs="12" md="9">
+                  <p className="form-control-static">Username</p>
+                </CCol>
+              </CFormGroup>
+
+
+              <CFormGroup row>
+                <CCol md="3">
+                  <CLabel>Designation</CLabel>
+                </CCol>
+                <CCol xs="12" md="9">
+                  <p className="form-control-static">Username</p>
+                </CCol>
+              </CFormGroup>
+
+
+              <CFormGroup row>
+                <CCol md="3">
+                  <CLabel>Date of Joining</CLabel>
+                </CCol>
+                <CCol xs="12" md="9">
+                  <p className="form-control-static">Username</p>
+                </CCol>
+              </CFormGroup>
+
+              <CFormGroup row>
+                <CCol md="3">
+                  <CLabel>Salary ($)</CLabel>
+                </CCol>
+                <CCol xs="12" md="9">
+                  <p className="form-control-static">Username</p>
+                </CCol>
+              </CFormGroup>
+
+
+
+
+
+            </CCardBody>
+          </CCard>
+        </CCol>
+        <CCol xs="12" sm="6" md="4">
+          <CCard>
+            <CCardHeader>
+              <b>    UPCOMING EVENTS</b>
+
+            </CCardHeader>
+            <CCardBody>
+              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
+              laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
+              ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
             </CCardBody>
           </CCard>
         </CCol>
       </CRow>
-      </CTabPane>
-      <CTabPane data-tab="file">
       <CRow>
-        <CCol xs="12" md="10">
-            <CCard>
-              <CCardHeader>
-                Employee File Upload
-              </CCardHeader>
-              <CCardBody>
-                <CForm action="submit" method="post"  className="form-horizontal">
-                <CFormGroup row>
-                  <CLabel col md={3}>Custom file input</CLabel>
-                  <CCol xs="12" md="9">
-                    <CInputFile custom id="custom-file-input" variant="custom-file" type="file" placeholder="Choose your CSV"   onChange={handlefile}/>
-                    <CLabel htmlFor="custom-file-input" variant="custom-file" type="file" >
-                      {file.name}
-                    </CLabel>
-                  </CCol>
-                </CFormGroup>
+        <CCol xs="12" sm="6" md="4">
 
-                </CForm>
-              </CCardBody>
-              <CCardFooter>
-                <CButton type="submit" size="lg" color="primary" onClick={onFileSubmit}> Submit</CButton>
+        </CCol>
+        <CCol xs="12" sm="6" md="4">
+          <CCard>
+            <CCardHeader>
+              <b>  BANK DETAILS</b>
 
-              </CCardFooter>
-            </CCard>
+            </CCardHeader>
+            <CCardBody>
+              <CFormGroup row>
+                <CCol md="3">
+                  <CLabel>Father's Name</CLabel>
+                </CCol>
+                <CCol xs="12" md="9">
+                  <p className="form-control-static">Username</p>
+                </CCol>
+              </CFormGroup>
 
-          </CCol>
-          </CRow>
-      </CTabPane>
-      </CTabContent>
-    </CTabs>
+              <CFormGroup row>
+                <CCol md="3">
+                  <CLabel>Father's Name</CLabel>
+                </CCol>
+                <CCol xs="12" md="9">
+                  <p className="form-control-static">Username</p>
+                </CCol>
+              </CFormGroup>
+
+              <CFormGroup row>
+                <CCol md="3">
+                  <CLabel>Father's Name</CLabel>
+                </CCol>
+                <CCol xs="12" md="9">
+                  <p className="form-control-static">Username</p>
+                </CCol>
+              </CFormGroup>
+
+              <CFormGroup row>
+                <CCol md="3">
+                  <CLabel>Father's Name</CLabel>
+                </CCol>
+                <CCol xs="12" md="9">
+                  <p className="form-control-static">Username</p>
+                </CCol>
+              </CFormGroup>
+            </CCardBody>
+          </CCard>
+        </CCol>
+        <CCol xs="12" sm="6" md="4">
+          <CCard>
+            <CCardHeader color="black">
+              <b> AWARDS</b>
+
+            </CCardHeader>
+            <CCardBody>
+
+            </CCardBody>
+          </CCard>
+
+        </CCol>
+      </CRow>
     </>
   )
 }
 
-export default Tables
+export default Cards

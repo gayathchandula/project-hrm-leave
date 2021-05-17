@@ -45,13 +45,14 @@ const Tables = () => {
   const [LeaveTypeId, setLeaveTypeId] = useState("");
     const [Reason, setReason] = useState("");
     const [Date, setDate] = useState("");
-    const [employeeTypeId, setemployeeTypeId] = useState("");
+
     const [rfid, setrfid] = useState("");
     const [listData, setListData] = useState({ lists: [] });
   const [listData1, setListData1] = useState({ lists: [] });
   const [listData2, setListData2] = useState({ lists: [] });
     const [loading, setLoading] = useState(true);
     const orgid = localStorage.getItem("org")
+  const empId = localStorage.getItem("id")
     const [numberOfDays, setnumberOfDays] = useState("");
     const onChangeLeaveTypeId = (e) => {
       setLeaveTypeId(e.target.value);
@@ -65,12 +66,11 @@ const Tables = () => {
     const onChangeDate = (e) => {
       setDate( e.target.value );
     };
-    const onChangeemployeeTypeId = (e) => {
-        setemployeeTypeId( e.target.value );
-    };
+
     const onChangenumberOfDays = (e) => {
       setnumberOfDays( e.target.value );
     };
+    const employeeTypeId =  localStorage.getItem("Emp")
     const token = localStorage.getItem("Token")
     const headers = {
         headers: {
@@ -81,12 +81,20 @@ const Tables = () => {
     useEffect(() => {
       const fetchData = async () => {
         const result = await axios(
-          `https://hrm-innovigent.herokuapp.com/api/v1/organizations/${orgid}/LeaveTypes/list`,headers
+          `https://hrm-innovigent.herokuapp.com/api/v1/organizations/${orgid}/emp/LeaveTypes/list`,headers
         );
         setListData({ lists: result.data.data.LeaveTypesDetails });
         setLoading(false);
       };
+      const fetchData1 = async () => {
+        const result = await axios(
+          `https://hrm-innovigent.herokuapp.com/api/v1/organizations/${empId}/leaveRequests/list`,headers
+        );
+        setListData1({ lists: result.data.data.leaveRequestDetails });
+        setLoading(false);
+      };
       fetchData();
+      fetchData1();
     }, []);
     const onSubmit = async (data) => {
 
@@ -160,7 +168,7 @@ const Tables = () => {
                       <CLabel htmlFor="text-input"> Employee ID</CLabel>
                     </CCol>
                     <CCol >
-                    <CLabel htmlFor="text-input"> ID</CLabel>
+                    <CLabel htmlFor="text-input"> {employeeTypeId}</CLabel>
                       {/* <CInput id="text-input" name="text-input" placeholder="Employee ID" value={firstName} onChange={onChangefirstName}/> */}
 
                     </CCol>
@@ -211,7 +219,7 @@ const Tables = () => {
                   </CFormGroup>
                   <CFormGroup row>
                     <CCol md="3">
-                      <CLabel htmlFor="text-input"> Hour Rate Percentage</CLabel>
+                      <CLabel htmlFor="text-input"> Number of Days</CLabel>
                     </CCol>
                     <CCol xs="12" md="9">
                     <CSelect onChange={onChangenumberOfDays} value={numberOfDays}>
@@ -251,7 +259,7 @@ const Tables = () => {
             </CCardHeader>
             <CCardBody>
             <CDataTable
-              items={listData.lists}
+              items={listData1.lists}
               fields={fields}
               hover
               striped
