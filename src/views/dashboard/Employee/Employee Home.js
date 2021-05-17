@@ -22,7 +22,7 @@ var imageName = require('src/assets/img_avatar.png')
 const Cards = () => {
   const [collapsed, setCollapsed] = React.useState(true)
   const [showCard, setShowCard] = React.useState(true)
-
+  const Name = localStorage.getItem("Name")
   return (
     <>
       <CRow>
@@ -32,7 +32,7 @@ const Cards = () => {
             <CCardBody>
 
               <label><img src={imageName.default} height="200px" /> </label>
-              <h1><b>Kasun charuka</b></h1>
+              <h1><b>{Name} {Name}</b></h1>
               <p>hello i am php developer</p>
               <div className="class-header" color="black">
                 <p1>At work wor:<b>3 hours</b></p1>
