@@ -51,7 +51,7 @@ const Tables = () => {
   const [listData1, setListData1] = useState({ lists: [] });
   const [listData2, setListData2] = useState({ lists: [] });
     const [loading, setLoading] = useState(true);
-    const orgid = localStorage.getItem("id")
+    const orgid = localStorage.getItem("org")
     const [numberOfDays, setnumberOfDays] = useState("");
     const onChangeLeaveTypeId = (e) => {
       setLeaveTypeId(e.target.value);

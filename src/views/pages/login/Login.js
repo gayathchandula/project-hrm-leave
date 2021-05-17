@@ -49,6 +49,7 @@ const Login = () => {
                   localStorage.setItem("Token", loginResponse.data.data.token);
                   localStorage.setItem("id", loginResponse.data.data.user.id);
                   localStorage.setItem("org", loginResponse.data.data.user.organizationId);
+                  localStorage.setItem("Emp", loginResponse.data.data.user.employeeTypeId);
                   setUserData({
                     id: loginResponse.data.data.user.id,
                     user: loginResponse.data.data.user.firstName,

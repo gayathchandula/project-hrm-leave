@@ -13,67 +13,12 @@ const _nav =  [
   },
   {
     _tag: 'CSidebarNavItem',
-    name: 'Attendence Log',
-    to: '/attendence',
-    icon: <CIcon name="cil-pencil" customClasses="c-sidebar-nav-icon"/>,
+    name: 'Leave Application',
+    to: '/Leave Application',
+    icon: <CIcon name="cil-speedometer" customClasses="c-sidebar-nav-icon"/>,
     badge: {
       color: 'info',
     }
-  },
-  {
-    _tag: 'CSidebarNavItem',
-    name: 'Employee',
-    to: '/Employee',
-    icon: <CIcon name="cil-puzzle"
-    customClasses="c-sidebar-nav-icon"/>,
-    badge: {
-      color: 'info',
-    }
-  },
-  {
-    _tag: 'CSidebarNavItem',
-    name: 'Admin',
-    to: '/Admin',
-    icon: <CIcon name="cil-cursor" customClasses="c-sidebar-nav-icon"/>,
-    badge: {
-      color: 'info',
-    }
-  },
-  {
-    _tag: 'CSidebarNavTitle',
-    _children: ['Admin']
-  },
-  {
-    _tag: 'CSidebarNavDropdown',
-    name: 'Over Time Management',
-    route: '/Overtime logs',
-    icon: 'cil-puzzle',
-    _children: [
-      {
-        _tag: 'CSidebarNavItem',
-        name: 'Overtime Logs',
-        to: '/Overtime logs',
-        icon: 'cil-chart-pie',
-      },
-      {
-        _tag: 'CSidebarNavItem',
-        name: 'Overtime Configuration',
-        to: '/Overtime Configuration',
-        icon: 'cil-star',
-      },
-      {
-        _tag: 'CSidebarNavItem',
-        name: 'Overtime Acceptance',
-        to: '/Overtime Acceptance',
-        icon: 'cil-bell',
-      },
-      {
-        _tag: 'CSidebarNavItem',
-        name: 'Shift Configuration',
-        to: '/Shift Configuration',
-        icon: 'cil-calculator',
-      },
-    ],
   },
   {
     _tag: 'CSidebarNavDropdown',
@@ -102,7 +47,7 @@ const _nav =  [
       {
         _tag: 'CSidebarNavItem',
         name: 'Employee Dashboard',
-        to: '/Leave Configuration',
+        to: '/Employee Home',
         icon: 'cil-calculator',
       },
       {
@@ -113,7 +58,7 @@ const _nav =  [
       },
     ],
   },
-  
+
   {
     _tag: 'CSidebarNavDivider'
   },
@@ -149,7 +94,7 @@ const _nav =  [
       },
     ],
   },
-  
+
   {
     _tag: 'CSidebarNavDivider',
     className: 'm-2'
@@ -200,7 +145,7 @@ const _nav =  [
     _tag: 'CSidebarNavDivider',
     className: 'm-2'
   },
- 
+
 ]
 
 export default _nav

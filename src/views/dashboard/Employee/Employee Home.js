@@ -13,7 +13,7 @@ import {
     CTabContent,
     CNavItem,
     CNavLink,
-    CNav, 
+    CNav,
     CTabPane,
     CForm,
     CSelect,
@@ -39,11 +39,11 @@ const getBadge = status => {
     default: return 'primary'
   }
 }
-const fields = ['id','firstName', 'lastName', 'shiftId','rfid', { 
-  key: 'show_details', 
-  label: 'Action', 
-  
-  sorter: false, 
+const fields = ['id','firstName', 'lastName', 'shiftId','rfid', {
+  key: 'show_details',
+  label: 'Action',
+
+  sorter: false,
   filter: false
 }]
 
@@ -57,11 +57,11 @@ const Tables = () => {
     const [listData, setListData] = useState({ lists: [] });
   const [listData1, setListData1] = useState({ lists: [] });
   const [listData2, setListData2] = useState({ lists: [] });
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     const handlefile = (e) => {
       setFile(e.target.files[0]);
-      
+
     };
     const onChangefirstName = (e) => {
         setfirstName(e.target.value);
@@ -109,7 +109,7 @@ const Tables = () => {
         setLoading(false);
         console.log(result)
     };
-      
+
       fetchData();
       fetchData1();
       fetchData2();
@@ -118,7 +118,7 @@ const Tables = () => {
 
 
         const body = ({firstName, lastName,rfid,shiftId,employeeTypeId} );
-    
+
 
     const headers = {
         headers: {
@@ -126,13 +126,13 @@ const Tables = () => {
           "Authorization":`Bearer ${token}`
         }
     };
-    
+
     axios.post("https://hrm-innovigent.herokuapp.com/api/v1/organizations/1/employees", body, headers)
     .then((res) => {
         if (res.status === 200) {
           window.location.reload();
             alert('upload success');
-        } 
+        }
     }).catch((err) => {
         console.error(err);
         alert('Error please try again');
@@ -147,13 +147,13 @@ const Tables = () => {
         "Authorization":`Bearer ${token}`
       }
   };
-  
+
   axios.post("https://hrm-innovigent.herokuapp.com/api/v1/organizations/1/upload", data, headers)
   .then((res) => {
       if (res.status === 200) {
         window.location.reload();
           alert('upload success');
-      } 
+      }
   }).catch((err) => {
       console.error(err);
       alert('Error please try again');
@@ -165,7 +165,7 @@ const Tables = () => {
 
 
       const body = ({rfid} );
-  
+
 
   const headers = {
       headers: {
@@ -173,19 +173,19 @@ const Tables = () => {
         "Authorization":`Bearer ${token}`
       }
   };
-  
+
   axios.post("https://hrm-innovigent.herokuapp.com/api/v1/organizations/1/employeeslist/delete", body, headers)
   .then((res) => {
       if (res.status === 200) {
         window.location.reload();
           alert('delete success');
-      } 
+      }
   }).catch((err) => {
       console.error(err);
       alert('Error please try again');
   });
   };
-  
+
    if (loading) {
     return (
       <div style={{ padding: "10px 20px", textAlign: "center"}}>
@@ -194,7 +194,7 @@ const Tables = () => {
     )
   }
   return (
-      
+
     <>
      <CTabs activeTab="Employeeform">
       <CNav variant="tabs">
@@ -219,9 +219,9 @@ const Tables = () => {
               </CCardHeader>
               <CCardBody>
                 <CForm action="submit" method="post"  className="form-horizontal">
-  
 
-  
+
+
                   <CFormGroup row>
                     <CCol md="3">
                       <CLabel htmlFor="text-input">First Name</CLabel>
@@ -231,7 +231,7 @@ const Tables = () => {
                       <CFormText>Type your first name</CFormText>
                     </CCol>
                   </CFormGroup>
-  
+
                   <CFormGroup row>
                     <CCol md="3">
                       <CLabel htmlFor="text-input">Last Name</CLabel>
@@ -250,14 +250,14 @@ const Tables = () => {
                   <CSelect
                   name="Countries"
                   onChange={e => onChangeemployeeTypeId(e)}
-                  value={employeeTypeId}   
+                  value={employeeTypeId}
                   >
                   <option selected>Select the Employee type</option>
                     {listData1.lists.map((country, key) => (
             <option key={key} value={country.id}>
               {country.Employee_type}
             </option>
-          ))}  
+          ))}
                   </CSelect>
                       <CFormText>Select your Employee type</CFormText>
                   </CCol>
@@ -271,14 +271,14 @@ const Tables = () => {
                   <CSelect
                   name="Countries"
                   onChange={onChangeshiftId}
-                  value={shiftId}   
+                  value={shiftId}
                   >
                   <option selected>Select the Shift</option>
                     {listData2.lists.map((country, key) => (
             <option key={key} value={country.id}>
               {country.shiftName}
             </option>
-          ))}  
+          ))}
                   </CSelect>
                       <CFormText>Select your shift type</CFormText>
                   </CCol>
@@ -292,16 +292,16 @@ const Tables = () => {
                       <CFormText>Type your RFID</CFormText>
                   </CCol>
                 </CFormGroup>
-               
-  
+
+
                 </CForm>
               </CCardBody>
               <CCardFooter>
                 <CButton type="submit" size="lg" color="primary" onClick={onSubmit}> Submit</CButton>
-                
+
               </CCardFooter>
             </CCard>
-           
+
           </CCol>
 
         <CCol >
@@ -341,7 +341,7 @@ const Tables = () => {
                   'show_details':
           (item, index)=>{
             return (
-            
+
               <td className="py-2">
                 <CButton
                   color="danger"
@@ -349,7 +349,7 @@ const Tables = () => {
                   shape="square"
                   size="sm"
                   onClick={()=>{onDelete(item.rfid)}}
-                 
+
                 >
                   Delete
                 </CButton>
@@ -368,7 +368,7 @@ const Tables = () => {
         <CCol xs="12" md="10">
             <CCard>
               <CCardHeader>
-                Employee File Upload 
+                Employee File Upload
               </CCardHeader>
               <CCardBody>
                 <CForm action="submit" method="post"  className="form-horizontal">
@@ -381,15 +381,15 @@ const Tables = () => {
                     </CLabel>
                   </CCol>
                 </CFormGroup>
-  
+
                 </CForm>
               </CCardBody>
               <CCardFooter>
                 <CButton type="submit" size="lg" color="primary" onClick={onFileSubmit}> Submit</CButton>
-                
+
               </CCardFooter>
             </CCard>
-           
+
           </CCol>
           </CRow>
       </CTabPane>

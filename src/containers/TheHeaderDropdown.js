@@ -16,8 +16,8 @@ const TheHeaderDropdown = () => {
   const submit = async (e) => {
     e.preventDefault();
     try{
-       
-        localStorage.clear("Token");
+
+        localStorage.clear();
         history.push("/");
 
 
