@@ -24,16 +24,27 @@ import { DocsLink } from 'src/reusable'
 
 import usersData from '../../users/UsersData'
 
-const getBadge = status => {
-  switch (status) {
-    case 'Active': return 'success'
-    case 'Inactive': return 'secondary'
-    case 'Pending': return 'warning'
-    case 'Banned': return 'danger'
+const getBadge = reviewstatusId => {
+  switch (reviewstatusId) {
+    case 1 : return 'success'
+    case 2 : return 'danger'
+    case 3 : return 'warning'
+
     default: return 'primary'
   }
 }
-const fields = ['Leave Type','No of days', 'Date', 'Requested Date','Status', {
+
+const changestatus = reviewstatusId => {
+  switch (reviewstatusId) {
+    case 1 : return "Approved"
+    case 2 : return 'Declined'
+    case 3 : return 'Pending'
+
+    default: return 'primary'
+  }
+}
+
+const fields = ['leavetypeId','numberOfDays', 'leaveRequestedDate', 'reason','reviewstatusId', {
   key: 'show_details',
   label: 'Action',
 
@@ -273,6 +284,14 @@ const Tables = () => {
                     <td>
                       <CBadge color={getBadge(item.status)}>
                         {item.status}
+                      </CBadge>
+                    </td>
+                  ),
+                'reviewstatusId':
+                  (item)=>(
+                    <td>
+                      <CBadge color={getBadge(item.reviewstatusId)}>
+                        {changestatus(item.reviewstatusId)}
                       </CBadge>
                     </td>
                   ),
