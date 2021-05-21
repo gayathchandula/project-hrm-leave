@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {
   CBadge,
   CCard,
@@ -13,29 +13,75 @@ import {
   CLabel,
   CFade,
   CSwitch,
-  CLink
-} from  '@coreui/react'
+  CLink, CSpinner, CSelect
+} from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { DocsLink } from 'src/reusable'
+import axios from "axios";
+import moment from 'moment';
 var imageName = require('src/assets/img_avatar.png')
 
 const Cards = () => {
   const [collapsed, setCollapsed] = React.useState(true)
   const [showCard, setShowCard] = React.useState(true)
+  const [department, setdepartment] = React.useState('')
+  const [designationName, setdesignationName] = React.useState('')
+  const [accountDecrypted, setaccountDecrypted] = React.useState('')
+  const [listData, setListData] = useState({ lists: [] });
+  const [loading, setLoading] = useState(true);
   const Name = localStorage.getItem("Name")
+  const id = localStorage.getItem("id")
+  const token = localStorage.getItem("Token")
+
+  const headers = {
+    headers: {
+
+      "Authorization":`Bearer ${token}`
+    }
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios(
+        `https://hrm-innovigent.herokuapp.com/api/v1/organizations/${id}/employeeslist/listEmployeeInfo`,headers
+      );
+      setListData({ lists: result.data.data});
+      setdepartment(result.data.data.department);
+      setdesignationName(result.data.data.designationName);
+      setaccountDecrypted(result.data.data.accountDecrypted);
+
+      setLoading(false);
+      console.log(result.data.data.EmployeeList)
+    };
+
+
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return (
+      <div style={{ padding: "10px 20px", textAlign: "center"}}>
+        <CSpinner />
+      </div>
+    )
+  }
   return (
     <>
+
+        <>
       <CRow>
+
         <CCol xs="12" sm="6" md="4">
           <CCard>
 
             <CCardBody>
 
+
               <label><img src={imageName.default} height="200px" /> </label>
-              <h1><b>{Name} {Name}</b></h1>
-              <p>hello i am php developer</p>
+              <h1><b>{listData.lists.EmployeeList.firstName}&nbsp;{listData.lists.EmployeeList.lastName}</b></h1>
+
               <div className="class-header" color="black">
-                <p1>At work wor:<b>3 hours</b></p1>
+
 
 
                 <table className="table">
@@ -66,7 +112,7 @@ const Cards = () => {
         <CCol xs="12" sm="6" md="4">
           <CCard>
             <CCardHeader>
-              <b> <div class="ab1" color="p-3 mb-2 bg-transparent text-dark"/> PROFESIONAL INFO</b>
+              <b> <div class="ab1" color="p-3 mb-2 bg-transparent text-dark"/> PERSONAL INFO</b>
 
             </CCardHeader>
             <CCardBody>
@@ -75,7 +121,7 @@ const Cards = () => {
                   <CLabel>Name</CLabel>
                 </CCol>
                 <CCol xs="12" md="9">
-                  <p className="form-control-static">Username</p>
+                  <p className="form-control-static">{listData.lists.EmployeeList.firstName}&nbsp;{listData.lists.EmployeeList.lastName}</p>
                 </CCol>
               </CFormGroup>
 
@@ -85,7 +131,7 @@ const Cards = () => {
                   <CLabel>DOB</CLabel>
                 </CCol>
                 <CCol xs="12" md="9">
-                  <p className="form-control-static">Username</p>
+                  <p className="form-control-static">{listData.lists.EmployeeList.DOB}</p>
                 </CCol>
               </CFormGroup>
 
@@ -96,7 +142,7 @@ const Cards = () => {
                   <CLabel>Gender</CLabel>
                 </CCol>
                 <CCol xs="12" md="9">
-                  <p className="form-control-static">Username</p>
+                  <p className="form-control-static">{listData.lists.EmployeeList.gender}</p>
                 </CCol>
               </CFormGroup>
 
@@ -106,7 +152,7 @@ const Cards = () => {
                   <CLabel>Email</CLabel>
                 </CCol>
                 <CCol xs="12" md="9">
-                  <p className="form-control-static">Username</p>
+                  <p className="form-control-static">{listData.lists.EmployeeList.employeeEmail}</p>
                 </CCol>
               </CFormGroup>
 
@@ -115,7 +161,7 @@ const Cards = () => {
                   <CLabel>Phone</CLabel>
                 </CCol>
                 <CCol xs="12" md="9">
-                  <p className="form-control-static">Username</p>
+                  <p className="form-control-static">{listData.lists.EmployeeList.phone}</p>
                 </CCol>
               </CFormGroup>
 
@@ -125,7 +171,7 @@ const Cards = () => {
                   <CLabel>Local Address</CLabel>
                 </CCol>
                 <CCol xs="12" md="9">
-                  <p className="form-control-static">Username</p>
+                  <p className="form-control-static">{listData.lists.EmployeeList.address}</p>
                 </CCol>
               </CFormGroup>
 
@@ -135,7 +181,7 @@ const Cards = () => {
                   <CLabel>Permanent Address</CLabel>
                 </CCol>
                 <CCol xs="12" md="9">
-                  <p className="form-control-static">Username</p>
+                  <p className="form-control-static">{listData.lists.EmployeeList.address}</p>
                 </CCol>
               </CFormGroup>
             </CCardBody>
@@ -156,17 +202,17 @@ const Cards = () => {
                       <div className="col xl4 l4 m6 s12">
                         <p className="teal year_exp white-text">
 
-                          <strong>2016</strong> - Mar
-                          <strong>15</strong>
+                          <strong></strong>
+                          <strong></strong>
                         </p>
                       </div>
                       <div className="col xl8 l8 m6 s12">
                         <blockquote className="no-pad">
                           <h6 className="no-pad mt-bottom">
-                            <strong>original tailan</strong>
+                            <strong></strong>
                           </h6>
                           <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam,
+
 
                           </p>
                         </blockquote>
@@ -176,20 +222,17 @@ const Cards = () => {
                       <div className="col xl4 l4 m6 s12">
                         <p className="teal year_exp white-text">
 
-                          <strong>2016</strong> - Mar
-                          <strong>17</strong>
+                          <strong></strong>
+                          <strong></strong>
                         </p>
                       </div>
                       <div className="col xl8 l8 m6 s12">
                         <blockquote className="no-pad">
                           <h6 className="no-pad mt-bottom">
-                            <strong>Alice had been of late much</strong>
+                            <strong></strong>
                           </h6>
                           <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam,
-                            earum doloribus dicta quod architecto, praesentium totam
-                            molestiae similique culpa repellat blanditiis nam facilis eius
-                            quaerat distinctio vitae, tenetur beatae repellendus?
+
                           </p>
                         </blockquote>
                       </div>
@@ -216,7 +259,7 @@ const Cards = () => {
                   <CLabel>Employee ID</CLabel>
                 </CCol>
                 <CCol xs="12" md="9">
-                  <p className="form-control-static">Username</p>
+                  <p className="form-control-static">{listData.lists.EmployeeList.id}</p>
                 </CCol>
               </CFormGroup>
 
@@ -226,7 +269,7 @@ const Cards = () => {
                   <CLabel>Department</CLabel>
                 </CCol>
                 <CCol xs="12" md="9">
-                  <p className="form-control-static">Username</p>
+                  <p className="form-control-static">{department}</p>
                 </CCol>
               </CFormGroup>
 
@@ -236,7 +279,7 @@ const Cards = () => {
                   <CLabel>Designation</CLabel>
                 </CCol>
                 <CCol xs="12" md="9">
-                  <p className="form-control-static">Username</p>
+                  <p className="form-control-static">{designationName}</p>
                 </CCol>
               </CFormGroup>
 
@@ -246,18 +289,11 @@ const Cards = () => {
                   <CLabel>Date of Joining</CLabel>
                 </CCol>
                 <CCol xs="12" md="9">
-                  <p className="form-control-static">Username</p>
+                  <p className="form-control-static">{moment(listData.lists.EmployeeList.createdAt).format("MMM Do YY")}</p>
                 </CCol>
               </CFormGroup>
 
-              <CFormGroup row>
-                <CCol md="3">
-                  <CLabel>Salary ($)</CLabel>
-                </CCol>
-                <CCol xs="12" md="9">
-                  <p className="form-control-static">Username</p>
-                </CCol>
-              </CFormGroup>
+
 
 
 
@@ -273,9 +309,7 @@ const Cards = () => {
 
             </CCardHeader>
             <CCardBody>
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
-              laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
-              ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+              No Upcoming Events
             </CCardBody>
           </CCard>
         </CCol>
@@ -293,37 +327,37 @@ const Cards = () => {
             <CCardBody>
               <CFormGroup row>
                 <CCol md="3">
-                  <CLabel>Father's Name</CLabel>
+                  <CLabel>Bank Name</CLabel>
                 </CCol>
                 <CCol xs="12" md="9">
-                  <p className="form-control-static">Username</p>
+                  <p className="form-control-static">{listData.lists.EmployeeList.bankName}</p>
                 </CCol>
               </CFormGroup>
 
               <CFormGroup row>
                 <CCol md="3">
-                  <CLabel>Father's Name</CLabel>
+                  <CLabel>Account Holder Name</CLabel>
                 </CCol>
                 <CCol xs="12" md="9">
-                  <p className="form-control-static">Username</p>
+                  <p className="form-control-static">{listData.lists.EmployeeList.accountHolderName}</p>
                 </CCol>
               </CFormGroup>
 
               <CFormGroup row>
                 <CCol md="3">
-                  <CLabel>Father's Name</CLabel>
+                  <CLabel>Account number</CLabel>
                 </CCol>
                 <CCol xs="12" md="9">
-                  <p className="form-control-static">Username</p>
+                  <p className="form-control-static">{accountDecrypted}</p>
                 </CCol>
               </CFormGroup>
 
               <CFormGroup row>
                 <CCol md="3">
-                  <CLabel>Father's Name</CLabel>
+                  <CLabel>Branch Name</CLabel>
                 </CCol>
                 <CCol xs="12" md="9">
-                  <p className="form-control-static">Username</p>
+                  <p className="form-control-static">{listData.lists.EmployeeList.branchName}</p>
                 </CCol>
               </CFormGroup>
             </CCardBody>
@@ -341,7 +375,10 @@ const Cards = () => {
           </CCard>
 
         </CCol>
+
       </CRow>
+          </>
+
     </>
   )
 }
