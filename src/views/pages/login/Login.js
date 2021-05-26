@@ -25,7 +25,7 @@ const Login = () => {
     const [password, setPassword] = useState();
     const [passwordConfirm, setpasswordConfirm] = useState();
     const [err, setErr] = useState();
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const { setUserData } = useContext(UserContext);
 
     const history = useHistory();
@@ -41,6 +41,8 @@ const Login = () => {
 
           const submit = async (e) => {
               e.preventDefault();
+            setErr("");
+            setLoading(true);
               try{
                   const body = ({employeeEmail, password,passwordConfirm});
                   const loginResponse = await axios.post("https://hrm-innovigent.herokuapp.com/api/v1/employees/login", body);
@@ -57,7 +59,7 @@ const Login = () => {
 
 
                 });
-                  setLoading(loginResponse.data.data.loading)
+                setLoading(false)
                 if(loginResponse.data.data.user.statusId === '50'){
 
                   history.push("/dashboard");
@@ -67,11 +69,18 @@ const Login = () => {
 
 
               } catch(err) {
-                  err.message&& setErr(err.message)
+                setLoading(false)
+                err.response.data.message && setErr(err.response.data.message)
               }
         };
 
-
+  if (loading) {
+    return (
+      <div style={{ padding: "10px 20px", textAlign: "center"}}>
+        <CSpinner />
+      </div>
+    )
+  }
 
   return (
     <div className="c-app c-default-layout flex-row align-items-center">
@@ -139,11 +148,11 @@ const Login = () => {
                   <div>
                     <h2>Sign up</h2>
                     <p>Don't have a HRM account?<br></br>
-                    Join us !</p>
+                    Contact Administrator</p>
 <br></br><br></br>
-                    <Link to="/register">
-                      <CButton color="primary" className="mt-3" active tabIndex={-1}>Register Now !</CButton>
-                    </Link>
+
+                      <CButton color="primary" href="https://www.innovigenttech.com/" className="mt-3" active tabIndex={-1}>Register Now ! Contact Innovigent (Pvt) Ltd</CButton>
+
                   </div>
                 </CCardBody>
               </CCard>
