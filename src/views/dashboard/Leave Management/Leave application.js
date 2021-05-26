@@ -174,17 +174,7 @@ const Tables = () => {
 
 
 
-                  <CFormGroup row>
-                    <CCol md="3">
-                      <CLabel htmlFor="text-input"> Employee ID</CLabel>
-                    </CCol>
-                    <CCol >
-                    <CLabel htmlFor="text-input"> {employeeTypeId}</CLabel>
-                      {/* <CInput id="text-input" name="text-input" placeholder="Employee ID" value={firstName} onChange={onChangefirstName}/> */}
 
-                    </CCol>
-                  </CFormGroup>
-  <br></br>
     <CFormGroup row>
                   <CCol md="3">
                     <CLabel htmlFor="select">Leave Type</CLabel>
