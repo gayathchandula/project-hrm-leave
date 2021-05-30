@@ -21,8 +21,25 @@ import {
     CRow,
 } from '@coreui/react'
 import { DocsLink } from 'src/reusable'
-
+import { Calendar, momentLocalizer} from 'react-big-calendar'
+import moment from 'moment';
 import usersData from '../../users/UsersData'
+
+const eventStyleGetter = function(event, start, end, isSelected) {
+  console.log(event);
+  var backgroundColor = '#' + event.hexColor;
+  var style = {
+    backgroundColor: backgroundColor,
+    borderRadius: '0px',
+    opacity: 0.8,
+    color: 'black',
+    border: '0px',
+    display: 'block'
+  };
+  return {
+    style: style
+  };
+}
 
 const getBadge = reviewstatusId => {
   switch (reviewstatusId) {
@@ -55,7 +72,7 @@ const fields = ['leavetypeId','numberOfDays', 'leaveRequestedDate', 'reason','re
 const Tables = () => {
   const [LeaveTypeId, setLeaveTypeId] = useState("");
     const [Reason, setReason] = useState("");
-    const [Date, setDate] = useState("");
+    const [date, setDate] = useState("");
 
     const [rfid, setrfid] = useState("");
     const [listData, setListData] = useState({ lists: [] });
@@ -65,6 +82,10 @@ const Tables = () => {
     const orgid = localStorage.getItem("org")
   const empId = localStorage.getItem("id")
     const [numberOfDays, setnumberOfDays] = useState("");
+  const localizer = momentLocalizer(moment)
+
+
+
     const onChangeLeaveTypeId = (e) => {
       setLeaveTypeId(e.target.value);
     };
@@ -156,6 +177,15 @@ const Tables = () => {
       alert('Error please try again');
   });
   };
+  const events= listData1.lists.map((appointment)=>{
+    return {
+      id: appointment.id,
+      title: appointment.reason,
+      start: new Date(appointment.leaveRequestedDate),
+      end: new Date(moment(appointment.leaveRequestedDate, "DD-MM-YYYY").add('days',appointment.numberOfDays)),
+      allDay: true
+    }
+  })
 
    if (loading) {
     return <CSpinner />
@@ -214,7 +244,7 @@ const Tables = () => {
                       <CLabel htmlFor="text-input">Date</CLabel>
                     </CCol>
                     <CCol xs="12" md="9">
-                      <CInput id="text-input" type="date" name="text-input" placeholder="Special Date" value={Date} onChange={onChangeDate} />
+                      <CInput id="text-input" type="date" name="text-input" placeholder="Special Date" value={date} onChange={onChangeDate} />
                       <CFormText>Please select Date</CFormText>
                     </CCol>
                   </CFormGroup>
@@ -309,7 +339,27 @@ const Tables = () => {
           </CCard>
         </CCol>
       </CRow>
+      <CRow>
+        <CCol>
+          <CCard>
+            <CCardHeader>
+              Overtime Configuration Table
+            </CCardHeader>
+            <CCardBody>
+              <Calendar
+                localizer={localizer}
+                events={events}
+                eventPropGetter={(eventStyleGetter)}
+                startAccessor='start'
+                endAccessor='end'
+                views={['month', 'day', 'week']}
+                style={{height: 450}}
+              />
 
+            </CCardBody>
+          </CCard>
+        </CCol>
+      </CRow>
     </>
   )
 }
