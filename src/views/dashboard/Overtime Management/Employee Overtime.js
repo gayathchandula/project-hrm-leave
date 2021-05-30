@@ -39,12 +39,12 @@ import {
 
 
 
-const getBadge = status => {
-  switch (status) {
-    case 'Active': return 'success'
-    case 'Inactive': return 'secondary'
-    case 'Pending': return 'warning'
-    case 'Banned': return 'danger'
+const getBadge = reviewstatusId => {
+  switch (reviewstatusId) {
+    case 1 : return 'success'
+    case 2 : return 'danger'
+    case 3 : return 'warning'
+
     default: return 'primary'
   }
 }
@@ -57,20 +57,8 @@ const changestatus = reviewstatusId => {
     default: return 'primary'
   }
 }
-const fields = ['otHrsMax','otHrsMin', 'employeeTypeId', 'otRate',{
-  key: 'show_details',
-  label: 'Action',
+const fields = ['employeeId','OTHrs', 'OTDayRate', 'createdAt','reviewstatusId']
 
-  sorter: false,
-  filter: false
-}]
-const fields1 = ['id','HolidayInfo', 'otAllowancePercentage', 'createdAt',{
-  key: 'show_details',
-  label: 'Action',
-
-  sorter: false,
-  filter: false
-}]
 
 const Tables = () => {
   const [otHrsMax, setotHrsMax] = useState([]);
@@ -132,7 +120,7 @@ const Tables = () => {
       const result = await axios.get(
         `https://hrm-innovigent.herokuapp.com/api/v1/organizations/${empId}/overtime/empot`,headers
       );
-      setListData({ lists: result.data.data.OtDetails});
+      setListData({ lists: result.data.data.empOTDetails});
       console.log(result.data)
     };
 
@@ -159,11 +147,11 @@ const Tables = () => {
         <CCol>
           <CCard>
             <CCardHeader>
-              My Leaves
+              My Over Times
             </CCardHeader>
             <CCardBody>
               <CDataTable
-                items={listData1.lists}
+                items={listData.lists}
                 fields={fields}
                 hover
                 striped
@@ -188,7 +176,10 @@ const Tables = () => {
                         </CBadge>
                       </td>
                     ),
-
+                  'createdAt':
+                    (item) => (
+                      <td> {moment(item.createdAt).format("MMM Do YY")} </td>
+                    )
 
                 }}
               />
