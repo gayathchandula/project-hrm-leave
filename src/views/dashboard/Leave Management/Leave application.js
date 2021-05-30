@@ -344,7 +344,7 @@ const Tables = () => {
         <CCol>
           <CCard>
             <CCardHeader>
-              Overtime Configuration Table
+              Leave calendar
             </CCardHeader>
             <CCardBody>
               <Calendar
