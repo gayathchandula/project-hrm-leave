@@ -20,6 +20,15 @@ const _nav =  [
       color: 'info',
     }
   },
+  {
+    _tag: 'CSidebarNavItem',
+    name: 'My Over Time',
+    to: '/Employeeot',
+    icon: <CIcon name="cil-speedometer" customClasses="c-sidebar-nav-icon"/>,
+    badge: {
+      color: 'info',
+    }
+  },
 
 
 ]

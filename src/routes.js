@@ -56,7 +56,7 @@ const Typography = React.lazy(() => import('./views/theme/typography/Typography'
 const Widgets = React.lazy(() => import('./views/widgets/Widgets'));
 const Users = React.lazy(() => import('./views/users/Users'));
 const User = React.lazy(() => import('./views/users/User'));
-
+const Employeeot = React.lazy(() => import('./views/dashboard/Overtime Management/Employee Overtime'));
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
@@ -65,6 +65,7 @@ const routes = [
   { path: '/Settings', name: 'Settings', component: Settings },
   { path: '/attendence', name: 'Attendence Log', component: Attendence },
   { path: '/AddEmployeeType', name: 'Add New Employee Type', component: AddEmployeeType },
+  { path: '/Employeeot', name: 'Employeeot', component: Employeeot },
   { path: '/Employee', name: 'Employee', component: Employee },
   { path: '/Employee Home', name: 'Employee Home', component: EmployeeHome },
   // { path: '/Employee Login', name: 'Employee Login', component: EmployeeLogin },

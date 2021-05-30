@@ -61,13 +61,7 @@ const changestatus = reviewstatusId => {
   }
 }
 
-const fields = ['leavetypeId','numberOfDays', 'leaveRequestedDate', 'reason','reviewstatusId', {
-  key: 'show_details',
-  label: 'Action',
-
-  sorter: false,
-  filter: false
-}]
+const fields = ['leavetypeId','numberOfDays', 'leaveRequestedDate', 'reason','reviewstatusId']
 
 const Tables = () => {
   const [LeaveTypeId, setLeaveTypeId] = useState("");
