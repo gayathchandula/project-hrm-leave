@@ -183,7 +183,8 @@ const Tables = () => {
       title: appointment.reason,
       start: new Date(appointment.leaveRequestedDate),
       end: new Date(moment(appointment.leaveRequestedDate, "DD-MM-YYYY").add('days',appointment.numberOfDays)),
-      allDay: true
+      allDay: true,
+      reviewstatusId: appointment.reviewstatusId,
     }
   })
 
@@ -349,11 +350,34 @@ const Tables = () => {
               <Calendar
                 localizer={localizer}
                 events={events}
-                eventPropGetter={(eventStyleGetter)}
                 startAccessor='start'
                 endAccessor='end'
                 views={['month', 'day', 'week']}
                 style={{height: 450}}
+                eventPropGetter={
+                  (event, start, end, isSelected) => {
+                    let newStyle = {
+                      backgroundColor: "lightblue",
+                      color: 'black',
+                      borderRadius: "0px",
+                      border: "none"
+                    };
+
+                    if (event.reviewstatusId === 1) {
+                      newStyle.backgroundColor = '#42ba96'
+                    }
+                    if (event.reviewstatusId === 2) {
+                      newStyle.backgroundColor = '#df4759'
+                    }
+                    if (event.reviewstatusId === 3) {
+                      newStyle.backgroundColor = '#ffc107'
+                    }
+                    return {
+                      className: "",
+                      style: newStyle
+                    };
+                  }
+                }
               />
 
             </CCardBody>
