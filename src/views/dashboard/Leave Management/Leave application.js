@@ -125,7 +125,7 @@ const Tables = () => {
     const onSubmit = async (data) => {
 
 
-        const body = ({ LeaveTypeId,Reason,Date,employeeTypeId,numberOfDays} );
+        const body = ({ LeaveTypeId,Reason,date,employeeTypeId,numberOfDays} );
 
 
     const headers = {
