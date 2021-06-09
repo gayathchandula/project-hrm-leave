@@ -284,6 +284,7 @@ const Tables = () => {
               My Leaves
             </CCardHeader>
             <CCardBody>
+                
             <CDataTable
               items={listData1.lists}
               fields={fields}
