@@ -25,6 +25,7 @@ const Cards = () => {
   const [collapsed, setCollapsed] = React.useState(true)
   const [showCard, setShowCard] = React.useState(true)
   const [department, setdepartment] = React.useState('')
+  const [shift, setshift] = React.useState('')
   const [designationName, setdesignationName] = React.useState('')
   const [accountDecrypted, setaccountDecrypted] = React.useState('')
   const [listData, setListData] = useState({ lists: [] });
@@ -45,13 +46,14 @@ const Cards = () => {
       const result = await axios(
         `https://hrm-innovigent.herokuapp.com/api/v1/organizations/${id}/employeeslist/listEmployeeInfo`,headers
       );
+      console.log(result.data.data.EmployeeList.department.departmentName)
       setListData({ lists: result.data.data});
-      setdepartment(result.data.data.department);
-      setdesignationName(result.data.data.designationName);
+      setdepartment(result.data.data.EmployeeList.department.departmentName);
+      setdesignationName(result.data.data.EmployeeList.designations.designationName);
       setaccountDecrypted(result.data.data.accountDecrypted);
+      setshift(result.data.data.EmployeeList.shift.shiftName);
 
       setLoading(false);
-      console.log(result.data.data.EmployeeList)
     };
 
 
@@ -280,6 +282,15 @@ const Cards = () => {
                 </CCol>
                 <CCol xs="12" md="9">
                   <p className="form-control-static">{designationName}</p>
+                </CCol>
+              </CFormGroup>
+
+              <CFormGroup row>
+                <CCol md="3">
+                  <CLabel>Shift</CLabel>
+                </CCol>
+                <CCol xs="12" md="9">
+                  <p className="form-control-static">{shift}</p>
                 </CCol>
               </CFormGroup>
 
