@@ -103,7 +103,7 @@ const Cards = () => {
                   <tr>
 
                     <th scope="col">ATTENDANCE</th>
-                    <th scope="col">LEAVE</th>
+
                     <th scope="col">AWARDS</th>
                   </tr>
                   </thead>
@@ -111,11 +111,7 @@ const Cards = () => {
                   <tr>
 
                     <td>0</td>
-                    {listData1.lists1.map((country, key) => (
-                      <td key={key} value={country.id}>
-                        {country.daysRemaining}/{country.numberOfDays}
-                      </td>
-                    ))}
+
                     <td>0</td>
                   </tr>
                   </tbody>
@@ -126,25 +122,6 @@ const Cards = () => {
 
             </CCardBody>
           </CCard>
-
-          <CCard>
-
-            <CCardBody>
-
-              {listData1.lists1.map((country1, key) => (
-              <CFormGroup row>
-                <CCol md="3">
-                  <b><CLabel key={key} value={country1.id}>{country1.leavetypes.LeaveTypeName}</CLabel></b>
-                </CCol>
-                <CCol xs="12" md="9">
-                  <p className="form-control-static">{country1.daysRemaining}/{country1.numberOfDays}</p>
-                </CCol>
-              </CFormGroup>
-              ))}
-
-            </CCardBody>
-          </CCard>
-
         </CCol>
         <CCol xs="12" sm="6" md="4">
           <CCard>
@@ -283,7 +260,9 @@ const Cards = () => {
         <CCol xs="12" sm="6" md="4">
 
         </CCol>
+
         <CCol xs="12" sm="6" md="4">
+
           <CCard>
             <CCardHeader>
               <b>COMPANY DETAILS</b>
@@ -349,15 +328,28 @@ const Cards = () => {
           </CCard>
         </CCol>
         <CCol xs="12" sm="6" md="4">
-          <CCard>
-            <CCardHeader>
-              <b>    UPCOMING EVENTS</b>
 
-            </CCardHeader>
-            <CCardBody>
-              No Upcoming Events
-            </CCardBody>
-          </CCard>
+            <CCard>
+              <CCardHeader>
+                <b> <div class="ab1" color="p-3 mb-2 bg-transparent text-dark"/> Leaves</b>
+
+              </CCardHeader>
+              <CCardBody>
+
+                {listData1.lists1.map((country1, key) => (
+                  <CFormGroup row>
+                    <CCol md="3">
+                      <b><CLabel key={key} value={country1.id}>{country1.leavetypes.LeaveTypeName}</CLabel></b>
+                    </CCol>
+                    <CCol xs="12" md="9">
+                      <p className="form-control-static">{country1.daysRemaining}/{country1.numberOfDays}</p>
+                    </CCol>
+                  </CFormGroup>
+                ))}
+
+              </CCardBody>
+            </CCard>
+
         </CCol>
       </CRow>
       <CRow>
