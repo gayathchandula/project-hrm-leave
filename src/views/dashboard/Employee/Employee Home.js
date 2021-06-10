@@ -28,7 +28,9 @@ const Cards = () => {
   const [shift, setshift] = React.useState('')
   const [designationName, setdesignationName] = React.useState('')
   const [accountDecrypted, setaccountDecrypted] = React.useState('')
+  const [daysRemaining, setdaysRemaining] = React.useState('')
   const [listData, setListData] = useState({ lists: [] });
+  const [listData1, setListData1] = useState({ lists: [] });
   const [loading, setLoading] = useState(true);
   const Name = localStorage.getItem("Name")
   const id = localStorage.getItem("id")
@@ -46,18 +48,28 @@ const Cards = () => {
       const result = await axios(
         `https://hrm-innovigent.herokuapp.com/api/v1/organizations/${id}/employeeslist/listEmployeeInfo`,headers
       );
-      console.log(result.data.data.EmployeeList.department.departmentName)
+
       setListData({ lists: result.data.data});
       setdepartment(result.data.data.EmployeeList.department.departmentName);
       setdesignationName(result.data.data.EmployeeList.designations.designationName);
       setaccountDecrypted(result.data.data.accountDecrypted);
       setshift(result.data.data.EmployeeList.shift.shiftName);
 
+
+    };
+
+    const fetchData1 = async () => {
+      const result1 = await axios(
+        `https://hrm-innovigent.herokuapp.com/api/v1/organizations/${id}/leaveRequests/leaveinfo`,headers
+      );
+      setListData1( { lists: result1.data.data.employee});
+
+
       setLoading(false);
     };
 
-
     fetchData();
+    fetchData1();
   }, []);
 
   if (loading) {
@@ -99,7 +111,11 @@ const Cards = () => {
                   <tr>
 
                     <td>0</td>
-                    <td>0/0</td>
+                    {listData1.lists.map((country, key) => (
+                      <td key={key} value={country.id}>
+                        {country.daysRemaining}/{country.numberOfDays}
+                      </td>
+                    ))}
                     <td>0</td>
                   </tr>
                   </tbody>
