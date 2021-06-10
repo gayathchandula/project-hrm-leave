@@ -30,7 +30,7 @@ const Cards = () => {
   const [accountDecrypted, setaccountDecrypted] = React.useState('')
   const [daysRemaining, setdaysRemaining] = React.useState('')
   const [listData, setListData] = useState({ lists: [] });
-  const [listData1, setListData1] = useState({ lists: [] });
+  const [listData1, setListData1] = useState({ lists1: [] });
   const [loading, setLoading] = useState(true);
   const Name = localStorage.getItem("Name")
   const id = localStorage.getItem("id")
@@ -49,7 +49,7 @@ const Cards = () => {
         `https://hrm-innovigent.herokuapp.com/api/v1/organizations/${id}/employeeslist/listEmployeeInfo`,headers
       );
 
-      setListData({ lists: result.data.data});
+      setListData({ lists: result.data.data.EmployeeList});
       setdepartment(result.data.data.EmployeeList.department.departmentName);
       setdesignationName(result.data.data.EmployeeList.designations.designationName);
       setaccountDecrypted(result.data.data.accountDecrypted);
@@ -62,7 +62,7 @@ const Cards = () => {
       const result1 = await axios(
         `https://hrm-innovigent.herokuapp.com/api/v1/organizations/${id}/leaveRequests/leaveinfo`,headers
       );
-      setListData1( { lists: result1.data.data.employee});
+      setListData1( { lists1: result1.data.data.employee});
 
 
       setLoading(false);
@@ -92,7 +92,7 @@ const Cards = () => {
 
 
               <label><img src={imageName.default} height="200px" /> </label>
-              <h1><b>{listData.lists.EmployeeList.firstName}&nbsp;{listData.lists.EmployeeList.lastName}</b></h1>
+              <h1><b>{listData.lists.firstName}&nbsp;{listData.lists.lastName}</b></h1>
 
               <div className="class-header" color="black">
 
@@ -111,7 +111,7 @@ const Cards = () => {
                   <tr>
 
                     <td>0</td>
-                    {listData1.lists.map((country, key) => (
+                    {listData1.lists1.map((country, key) => (
                       <td key={key} value={country.id}>
                         {country.daysRemaining}/{country.numberOfDays}
                       </td>
@@ -126,6 +126,25 @@ const Cards = () => {
 
             </CCardBody>
           </CCard>
+
+          <CCard>
+
+            <CCardBody>
+
+              {listData1.lists1.map((country1, key) => (
+              <CFormGroup row>
+                <CCol md="3">
+                  <b><CLabel key={key} value={country1.id}>{country1.leavetypes.LeaveTypeName}</CLabel></b>
+                </CCol>
+                <CCol xs="12" md="9">
+                  <p className="form-control-static">{country1.daysRemaining}/{country1.numberOfDays}</p>
+                </CCol>
+              </CFormGroup>
+              ))}
+
+            </CCardBody>
+          </CCard>
+
         </CCol>
         <CCol xs="12" sm="6" md="4">
           <CCard>
@@ -139,7 +158,7 @@ const Cards = () => {
                   <CLabel>Name</CLabel>
                 </CCol>
                 <CCol xs="12" md="9">
-                  <p className="form-control-static">{listData.lists.EmployeeList.firstName}&nbsp;{listData.lists.EmployeeList.lastName}</p>
+                  <p className="form-control-static">{listData.lists.firstName}&nbsp;{listData.lists.lastName}</p>
                 </CCol>
               </CFormGroup>
 
@@ -149,7 +168,7 @@ const Cards = () => {
                   <CLabel>DOB</CLabel>
                 </CCol>
                 <CCol xs="12" md="9">
-                  <p className="form-control-static">{listData.lists.EmployeeList.DOB}</p>
+                  <p className="form-control-static">{listData.lists.DOB}</p>
                 </CCol>
               </CFormGroup>
 
@@ -160,7 +179,7 @@ const Cards = () => {
                   <CLabel>Gender</CLabel>
                 </CCol>
                 <CCol xs="12" md="9">
-                  <p className="form-control-static">{listData.lists.EmployeeList.gender}</p>
+                  <p className="form-control-static">{listData.lists.gender}</p>
                 </CCol>
               </CFormGroup>
 
@@ -170,7 +189,7 @@ const Cards = () => {
                   <CLabel>Email</CLabel>
                 </CCol>
                 <CCol xs="12" md="9">
-                  <p className="form-control-static">{listData.lists.EmployeeList.employeeEmail}</p>
+                  <p className="form-control-static">{listData.lists.employeeEmail}</p>
                 </CCol>
               </CFormGroup>
 
@@ -179,7 +198,7 @@ const Cards = () => {
                   <CLabel>Phone</CLabel>
                 </CCol>
                 <CCol xs="12" md="9">
-                  <p className="form-control-static">{listData.lists.EmployeeList.phone}</p>
+                  <p className="form-control-static">{listData.lists.phone}</p>
                 </CCol>
               </CFormGroup>
 
@@ -189,7 +208,7 @@ const Cards = () => {
                   <CLabel>Local Address</CLabel>
                 </CCol>
                 <CCol xs="12" md="9">
-                  <p className="form-control-static">{listData.lists.EmployeeList.address}</p>
+                  <p className="form-control-static">{listData.lists.address}</p>
                 </CCol>
               </CFormGroup>
 
@@ -199,7 +218,7 @@ const Cards = () => {
                   <CLabel>Permanent Address</CLabel>
                 </CCol>
                 <CCol xs="12" md="9">
-                  <p className="form-control-static">{listData.lists.EmployeeList.address}</p>
+                  <p className="form-control-static">{listData.lists.address}</p>
                 </CCol>
               </CFormGroup>
             </CCardBody>
@@ -277,7 +296,7 @@ const Cards = () => {
                   <CLabel>Employee ID</CLabel>
                 </CCol>
                 <CCol xs="12" md="9">
-                  <p className="form-control-static">{listData.lists.EmployeeList.id}</p>
+                  <p className="form-control-static">{listData.lists.id}</p>
                 </CCol>
               </CFormGroup>
 
@@ -316,7 +335,7 @@ const Cards = () => {
                   <CLabel>Date of Joining</CLabel>
                 </CCol>
                 <CCol xs="12" md="9">
-                  <p className="form-control-static">{moment(listData.lists.EmployeeList.createdAt).format("MMM Do YY")}</p>
+                  <p className="form-control-static">{moment(listData.lists.createdAt).format("MMM Do YY")}</p>
                 </CCol>
               </CFormGroup>
 
@@ -357,7 +376,7 @@ const Cards = () => {
                   <CLabel>Bank Name</CLabel>
                 </CCol>
                 <CCol xs="12" md="9">
-                  <p className="form-control-static">{listData.lists.EmployeeList.bankName}</p>
+                  <p className="form-control-static">{listData.lists.bankName}</p>
                 </CCol>
               </CFormGroup>
 
@@ -366,7 +385,7 @@ const Cards = () => {
                   <CLabel>Account Holder Name</CLabel>
                 </CCol>
                 <CCol xs="12" md="9">
-                  <p className="form-control-static">{listData.lists.EmployeeList.accountHolderName}</p>
+                  <p className="form-control-static">{listData.lists.accountHolderName}</p>
                 </CCol>
               </CFormGroup>
 
@@ -384,7 +403,7 @@ const Cards = () => {
                   <CLabel>Branch Name</CLabel>
                 </CCol>
                 <CCol xs="12" md="9">
-                  <p className="form-control-static">{listData.lists.EmployeeList.branchName}</p>
+                  <p className="form-control-static">{listData.lists.branchName}</p>
                 </CCol>
               </CFormGroup>
             </CCardBody>
