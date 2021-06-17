@@ -3,7 +3,17 @@
   <component name="issues">
     <option name="index">
       <map>
+        <entry key="/Dummy.txt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../project-hrm-client-Mujeeb-work/src/views/dashboard/Overtime Management/Shift Configuration.js">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/test/Employee Home.test.js">
           <value>
             <set />
           </value>
