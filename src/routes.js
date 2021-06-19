@@ -25,26 +25,11 @@ const ButtonDropdowns = React.lazy(() => import('./views/buttons/button-dropdown
 const ButtonGroups = React.lazy(() => import('./views/buttons/button-groups/ButtonGroups'));
 const Buttons = React.lazy(() => import('./views/buttons/buttons/Buttons'));
 const Charts = React.lazy(() => import('./views/charts/Charts'));
-const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'));
-const Attendence = React.lazy(() => import('./views/dashboard/Attendence Log/Attendence Log'));
-const Employee = React.lazy(() => import('./views/dashboard/Employee/Employee'));
 const EmployeeHome = React.lazy(() => import('./views/dashboard/Employee/Employee Home'));
-// const EmployeeLogin = React.lazy(() => import('./views/dashboard/Employee/Employee Login'));
-const Admin = React.lazy(() => import('./views/dashboard/Admin/Admin'));
-const OvertimeLogs = React.lazy(() => import('./views/dashboard/Overtime Management/Overtime Logs'));
-const OvertimeAcceptance = React.lazy(() => import('./views/dashboard/Overtime Management/Overtime Acceptance'));
-const OvertimeConfiguration = React.lazy(() => import('./views/dashboard/Overtime Management/Overtime Configuration'));
-const ShiftConfiguration = React.lazy(() => import('./views/dashboard/Overtime Management/Shift Configuration'));
-const Updateshift = React.lazy(() => import('./views/dashboard/Overtime Management/Updateshift'));
-const Updateot = React.lazy(() => import('./views/dashboard/Overtime Management/Updateot'));
-const LeaveTypes = React.lazy(() => import('./views/dashboard/Leave Management/Leave Types')); //leave management
 const LeaveApplication = React.lazy(() => import('./views/dashboard/Leave Management/Leave application'));
-const LeaveConfiguration = React.lazy(() => import('./views/dashboard/Leave Management/Leave Configuration'));
-const LeaveAcceptance = React.lazy(() => import('./views/dashboard/Leave Management/Leave Acceptance'));
 const rfid = React.lazy(() => import('./views/dashboard/Home Page/rfid'));
 const ChangePassword = React.lazy(() => import('./views/dashboard/Home Page/Change Password'));
 const Settings = React.lazy(() => import('./views/dashboard/Home Page/Settings'));
-const AddEmployeeType = React.lazy(() => import('./views/dashboard/Employee/Add Employee Type'));
 const CoreUIIcons = React.lazy(() => import('./views/icons/coreui-icons/CoreUIIcons'));
 const Flags = React.lazy(() => import('./views/icons/flags/Flags'));
 const Brands = React.lazy(() => import('./views/icons/brands/Brands'));
@@ -59,27 +44,12 @@ const User = React.lazy(() => import('./views/users/User'));
 const Employeeot = React.lazy(() => import('./views/dashboard/Overtime Management/Employee Overtime'));
 const routes = [
   { path: '/', exact: true, name: 'Home' },
-  { path: '/dashboard', name: 'Dashboard', component: Dashboard },
   { path: '/rfid', name: 'rfid', component: rfid },  //rfid for main home
   { path: '/Change Password', name: 'Change Password', component: ChangePassword },
   { path: '/Settings', name: 'Settings', component: Settings },
-  { path: '/attendence', name: 'Attendence Log', component: Attendence },
-  { path: '/AddEmployeeType', name: 'Add New Employee Type', component: AddEmployeeType },
   { path: '/Employeeot', name: 'Employeeot', component: Employeeot },
-  { path: '/Employee', name: 'Employee', component: Employee },
   { path: '/Employee Home', name: 'Employee Home', component: EmployeeHome },
-  // { path: '/Employee Login', name: 'Employee Login', component: EmployeeLogin },
-  { path: '/Admin', name: 'Admin', component: Admin },
-  { path: '/Overtime Logs', name: 'Overtime Logs', component: OvertimeLogs },
-  { path: '/Overtime Acceptance', name: 'Overtime Acceptance', component: OvertimeAcceptance },
-  { path: '/Overtime Configuration', name: 'Overtime Configuration', component: OvertimeConfiguration },
-  { path: '/Shift Configuration', name: 'Shift Configuration', component: ShiftConfiguration },
-  { path: '/Updateshift', name: 'Updateshift', component: Updateshift },
-  { path: '/Updateot', name: 'Updateot', component: Updateot },
-  { path: '/Leave Types', name: 'Leave Types', component: LeaveTypes },
   { path: '/Leave application', name: 'Leave application', component: LeaveApplication },
-  { path: '/Leave Configuration', name: 'Leave Configuration', component: LeaveConfiguration },
-  { path: '/Leave Acceptance', name: 'Leave Acceptance', component: LeaveAcceptance },
   { path: '/theme', name: 'Theme', component: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', component: Colors },
   { path: '/theme/typography', name: 'Typography', component: Typography },
