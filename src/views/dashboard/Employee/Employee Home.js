@@ -1,38 +1,26 @@
 import React, {useEffect, useState} from 'react'
 import {
-  CBadge,
   CCard,
   CCardBody,
-  CCardFooter,
   CCardHeader,
   CCol,
   CRow,
-  CCollapse,
-  CForm,
   CFormGroup,
   CLabel,
-  CFade,
-  CSwitch,
-  CLink, CSpinner, CSelect
+  CSpinner
 } from '@coreui/react'
-import CIcon from '@coreui/icons-react'
-import { DocsLink } from 'src/reusable'
 import axios from "axios";
 import moment from 'moment';
 var imageName = require('src/assets/img_avatar.png')
 
 const Cards = () => {
-  const [collapsed, setCollapsed] = React.useState(true)
-  const [showCard, setShowCard] = React.useState(true)
   const [department, setdepartment] = React.useState('')
   const [shift, setshift] = React.useState('')
   const [designationName, setdesignationName] = React.useState('')
   const [accountDecrypted, setaccountDecrypted] = React.useState('')
-  const [daysRemaining, setdaysRemaining] = React.useState('')
   const [listData, setListData] = useState({ lists: [] });
   const [listData1, setListData1] = useState({ lists1: [] });
   const [loading, setLoading] = useState(true);
-  const Name = localStorage.getItem("Name")
   const id = localStorage.getItem("id")
   const token = localStorage.getItem("Token")
 
