@@ -58,6 +58,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/views/pages/login/Login.js">
+          <value>
+            <set />
+          </value>
+        </entry>
       </map>
     </option>
   </component>

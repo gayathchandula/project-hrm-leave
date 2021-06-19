@@ -13,9 +13,10 @@ import {
   CInputGroupPrepend,
   CInputGroupText,
   CSpinner,
-  CRow
+  CRow,
+  CAlert
 } from '@coreui/react'
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 import CIcon from '@coreui/icons-react'
@@ -23,7 +24,6 @@ import CIcon from '@coreui/icons-react'
 const Login = () => {
     const [employeeEmail, setEmail] = useState();
     const [password, setPassword] = useState();
-    const [passwordConfirm, setpasswordConfirm] = useState();
     const [err, setErr] = useState();
     const [loading, setLoading] = useState(false);
     const { setUserData } = useContext(UserContext);
@@ -35,16 +35,13 @@ const Login = () => {
     const onChangePassword = (e) => {
         setPassword(e.target.value );
           };
-    // const onChangepasswordConfirm = (e) => {
-    //     setpasswordConfirm( e.target.value );
-    // };
 
           const submit = async (e) => {
               e.preventDefault();
             setErr("");
             setLoading(true);
               try{
-                  const body = ({employeeEmail, password,passwordConfirm});
+                  const body = ({employeeEmail, password});
                   const loginResponse = await axios.post("https://hrm-innovigent.herokuapp.com/api/v1/employees/login", body);
 
 
@@ -90,7 +87,11 @@ const Login = () => {
             <CCardGroup>
               <CCard className="p-4">
                 <CCardBody>
-
+                  {err ? (
+                    <CAlert color="info" closeButton fade={5}>
+                      {err}
+                    </CAlert>
+                  ) : null}
 
                   <CForm onSubmit={submit}>
 
