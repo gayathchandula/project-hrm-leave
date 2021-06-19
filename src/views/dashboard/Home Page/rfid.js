@@ -23,7 +23,7 @@ import {
 } from '@coreui/react'
 import { DocsLink } from 'src/reusable'
 
-import usersData from '../../users/UsersData'
+import usersData from '../../users/UsrsData'
 var imageName = require('src/assets/img_avatar.png')
 
 const getBadge = status => {
