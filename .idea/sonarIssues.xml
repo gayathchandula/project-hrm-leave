@@ -43,6 +43,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/views/charts/Charts.js">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/views/dashboard/Employee/Employee Home.js">
           <value>
             <set />
@@ -74,6 +79,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/views/pages/login/Login.js">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/views/widgets/WidgetsBrand.js">
           <value>
             <set />
           </value>
