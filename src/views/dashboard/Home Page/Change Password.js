@@ -9,30 +9,19 @@ import {
   CInputGroup,
   CInputGroupPrepend,
   CInputGroupText,
-
   CInput,
-
-  CTooltip,
-  CRow,
-  CCol,
-  CLink
 } from '@coreui/react'
-import { DocsLink } from 'src/reusable'
 import CIcon from '@coreui/icons-react'
 import axios from "axios";
 
 
 const Changepassword = () => {
-  const placements = [
-    'top-start', 'top', 'top-end',
-    'bottom-start', 'bottom', 'bottom-end',
-    'right-start', 'right', 'right-end',
-    'left-start', 'left', 'left-end'
-  ]
+
   const orgid = localStorage.getItem("id")
   const token = localStorage.getItem("Token")
   const [oldpassword, setoldpassword] = useState();
   const [newpassword, setnewpassword] = useState();
+  const [err, setErr] = useState();
   const [confirmNewpassword, setconfirmNewpassword] = useState();
   const onChangeoldpassword = (e) => {
     setoldpassword(e.target.value );
@@ -44,7 +33,7 @@ const Changepassword = () => {
     setconfirmNewpassword(e.target.value );
   };
   const onSubmit = async (data) => {
-
+    setErr("");
 
     const body = ({oldpassword,newpassword,confirmNewpassword});
 
@@ -59,12 +48,11 @@ const Changepassword = () => {
     axios.post(`https://hrm-innovigent.herokuapp.com/api/v1/organizations/${orgid}/employeeslist/updatepassword`, body, headers)
       .then((res) => {
         if (res.status === 200) {
-          //window.location.reload();
-          alert('upload success');
+          alert('Changes success');
         }
       }).catch((err) => {
       console.error(err);
-      alert('Error please try again');
+      err.response.data.message && setErr(err.response.data.message)
     });
   };
 
@@ -79,6 +67,11 @@ const Changepassword = () => {
           <b> CHANGE PASSWORD</b>
         </CCardHeader>
         <CCardBody>
+          {err ? (
+            <CAlert color="info" closeButton fade={5}>
+              {err}
+            </CAlert>
+          ) : null}
           <CForm action="" method="post">
             <CFormGroup>
               <CInputGroup>
@@ -107,7 +100,7 @@ const Changepassword = () => {
               </CInputGroup>
             </CFormGroup>
             <CFormGroup className="form-actions">
-              <CButton  size="lg" color="success" onClick={onSubmit}>Submit</CButton>
+              <CButton  data-testid="toggle" size="lg" color="success" onClick={onSubmit}>Submit</CButton>
             </CFormGroup>
           </CForm>
         </CCardBody>
