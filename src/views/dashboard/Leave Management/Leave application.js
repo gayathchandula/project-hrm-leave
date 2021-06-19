@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
-import {Link,useHistory } from 'react-router-dom';
 import {
     CBadge,
     CCard,
@@ -15,15 +14,12 @@ import {
     CFormText,
     CCardFooter,
     CInput,
-    CInputFile,
   CSpinner,
     CLabel,
     CRow,
 } from '@coreui/react'
-import { DocsLink } from 'src/reusable'
 import { Calendar, momentLocalizer} from 'react-big-calendar'
 import moment from 'moment';
-import usersData from '../../users/UsersData'
 
 const eventStyleGetter = function(event, start, end, isSelected) {
   console.log(event);
@@ -67,11 +63,8 @@ const Tables = () => {
   const [LeaveTypeId, setLeaveTypeId] = useState("");
     const [Reason, setReason] = useState("");
     const [date, setDate] = useState("");
-
-    const [rfid, setrfid] = useState("");
     const [listData, setListData] = useState({ lists: [] });
   const [listData1, setListData1] = useState({ lists: [] });
-  const [listData2, setListData2] = useState({ lists: [] });
     const [loading, setLoading] = useState(true);
     const orgid = localStorage.getItem("org")
   const empId = localStorage.getItem("id")
@@ -85,9 +78,6 @@ const Tables = () => {
     };
     const onChangeReason = (e) => {
       setReason(e.target.value );
-    };
-    const onChangerfid = (e) => {
-        setrfid( e.target.value );
     };
     const onChangeDate = (e) => {
       setDate( e.target.value );
@@ -128,12 +118,6 @@ const Tables = () => {
         const body = ({ LeaveTypeId,Reason,date,employeeTypeId,numberOfDays} );
 
 
-    const headers = {
-        headers: {
-
-          "Authorization":`Bearer ${token}`
-        }
-    };
 
     axios.post(`https://hrm-innovigent.herokuapp.com/api/v1/organizations/${orgid}/leaveRequests/create`, body, headers)
     .then((res) => {
@@ -153,12 +137,6 @@ const Tables = () => {
       const body = ({rfid} );
 
 
-  const headers = {
-      headers: {
-
-        "Authorization":`Bearer ${token}`
-      }
-  };
 
   axios.post(`https://hrm-innovigent.herokuapp.com/api/v1/organizations/${orgid}/employeeslist/delete`, body, headers)
   .then((res) => {
