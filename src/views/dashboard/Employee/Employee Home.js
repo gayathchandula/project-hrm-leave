@@ -7,7 +7,8 @@ import {
   CRow,
   CFormGroup,
   CLabel,
-  CSpinner
+  CSpinner,
+  CInput
 } from '@coreui/react'
 import axios from "axios";
 import moment from 'moment';
@@ -15,6 +16,7 @@ var imageName = require('src/assets/img_avatar.png')
 
 const Cards = () => {
   const [department, setdepartment] = React.useState('')
+  const [image, setimage] = React.useState('')
   const [shift, setshift] = React.useState('')
   const [designationName, setdesignationName] = React.useState('')
   const [accountDecrypted, setaccountDecrypted] = React.useState('')
@@ -53,12 +55,38 @@ const Cards = () => {
       setListData1( { lists1: result1.data.data.employee});
 
 
+    };
+    const fetchData2 = async () => {
+      const result2 = await axios(
+        `https://hrm-innovigent.herokuapp.com/api/v1/organizations/${id}/profile/image/get`,headers
+      );
+      setimage( 'https://hrm-innovigent.herokuapp.com/' + result2.data.data.createImage.imagePath);
+
+
       setLoading(false);
     };
-
     fetchData();
     fetchData1();
+    fetchData2();
   }, []);
+
+  const imageHandler = (event) =>{
+    setimage(event.target.files[0]) ;
+    const  formData = new FormData()
+    formData.append('image',image)
+    axios.post(`https://hrm-innovigent.herokuapp.com/api/v1/organizations/${id}/profile/image`,{
+      method:'POST',
+      body: formData,
+      headers:{
+        'Accept': 'multipart/form-data',
+      },
+      credentials:'include',
+    })
+      .then(res => res.json())
+      .catch(error =>{
+        console.log(error)
+      })
+  }
 
   if (loading) {
     return (
@@ -78,8 +106,8 @@ const Cards = () => {
 
             <CCardBody>
 
-
-              <label><img src={imageName.default} height="200px" /> </label>
+              <CInput type="file" name="image" accept="image/*" multiple={false} onChange={imageHandler} />
+              <label><img src={image} height="200px" alt="img"/> </label>
               <h1><b>{listData.lists.firstName}&nbsp;{listData.lists.lastName}</b></h1>
 
               <div className="class-header" color="black">
