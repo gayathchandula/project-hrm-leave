@@ -9,7 +9,7 @@ import {
   CLabel,
   CSpinner,
   CButton,
-  CInput
+  CInput, CAlert
 } from '@coreui/react'
 import axios from "axios";
 import moment from 'moment';
@@ -17,7 +17,7 @@ var imageName = require('src/assets/img_avatar.png')
 
 const Cards = () => {
   const [department, setdepartment] = React.useState('')
-  const [image, setimage] = React.useState('')
+  const [image, setimage] = React.useState(imageName.Default)
   const [shift, setshift] = React.useState('')
   const [designationName, setdesignationName] = React.useState('')
   const [accountDecrypted, setaccountDecrypted] = React.useState('')
@@ -61,7 +61,14 @@ const Cards = () => {
       const result2 = await axios(
         `https://hrm-innovigent.herokuapp.com/api/v1/organizations/${id}/profile/image/get`,headers
       );
-      setimage( 'https://hrm-innovigent.herokuapp.com/' + result2.data.data.createImage.imagePath);
+      {result2.data.data.createImage ? (
+        setimage( 'https://hrm-innovigent.herokuapp.com/' + result2.data.data.createImage.imagePath)
+      ) : (
+
+        setimage('')
+      )
+      }
+
 
 
       setLoading(false);
@@ -107,12 +114,22 @@ const Cards = () => {
           <CCard>
 
             <CCardBody>
+              {image ? (
+                <label>
+                  <img src={image} height="200px" alt="img" style={{ display: "inline-block",position: "relative" }}  title="Click to Update Profile"/>
+                  <CInput type="file" name="image" accept="image/*" multiple={false} onChange={imageHandler}   style={{ display: "none" }}/>
+                </label>
+              ) : (
+
+                <label>
+                  <img src={imageName.default} height="200px" alt="img" style={{ display: "inline-block",position: "relative" }}  title="Click to Update Profile"/>
+                  <CInput type="file" name="image" accept="image/*" multiple={false} onChange={imageHandler}   style={{ display: "none" }}/>
+                </label>
+              )
+              }
 
 
-              <label>
-                <img src={image} height="200px" alt="img" style={{ display: "inline-block",position: "relative" }}  title="Click to Update Profile"/>
-                <CInput type="file" name="image" accept="image/*" multiple={false} onChange={imageHandler}   style={{ display: "none" }}/>
-              </label>
+
               <h1><b>{listData.lists.firstName}&nbsp;{listData.lists.lastName}</b></h1>
 
               <div className="class-header" color="black">
