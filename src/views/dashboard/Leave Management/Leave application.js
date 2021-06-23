@@ -14,7 +14,7 @@ import {
     CFormText,
     CCardFooter,
     CInput,
-  CSpinner,
+    CSpinner,
     CLabel,
     CRow,
 } from '@coreui/react'

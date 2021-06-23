@@ -8,6 +8,7 @@ import {
   CFormGroup,
   CLabel,
   CSpinner,
+  CButton,
   CInput
 } from '@coreui/react'
 import axios from "axios";
@@ -70,17 +71,18 @@ const Cards = () => {
     fetchData2();
   }, []);
 
+
   const imageHandler = (event) =>{
-    setimage(event.target.files[0]) ;
+    const file = event.target.files[0] ;
     const  formData = new FormData()
-    formData.append('image',image)
-    axios.post(`https://hrm-innovigent.herokuapp.com/api/v1/organizations/${id}/profile/image`,{
-      method:'POST',
-      body: formData,
+    formData.append('image',file)
+    axios.post(`https://hrm-innovigent.herokuapp.com/api/v1/organizations/${id}/profile/image`,formData,{
+      //body: formData,
       headers:{
         'Accept': 'multipart/form-data',
+        "Authorization":`Bearer ${token}`
       },
-      credentials:'include',
+     //credentials: 'include',
     })
       .then(res => res.json())
       .catch(error =>{
@@ -106,8 +108,11 @@ const Cards = () => {
 
             <CCardBody>
 
-              <CInput type="file" name="image" accept="image/*" multiple={false} onChange={imageHandler} />
-              <label><img src={image} height="200px" alt="img"/> </label>
+
+              <label>
+                <img src={image} height="200px" alt="img" style={{ display: "inline-block",position: "relative" }}  title="Click to Update Profile"/>
+                <CInput type="file" name="image" accept="image/*" multiple={false} onChange={imageHandler}   style={{ display: "none" }}/>
+              </label>
               <h1><b>{listData.lists.firstName}&nbsp;{listData.lists.lastName}</b></h1>
 
               <div className="class-header" color="black">
