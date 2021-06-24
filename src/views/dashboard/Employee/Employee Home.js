@@ -120,7 +120,7 @@ const Cards = () => {
                   content="Click to Update Profile"
                   placement="top"
                 >
-                <label>
+                <label style={{ cursor: "pointer" }}>
                   <img src={image} height="200px" alt="img" style={{ display: "inline-block",position: "relative" }}  />
                   <CInput type="file" name="image" accept="image/*" multiple={false} onChange={imageHandler}   style={{ display: "none" }}/>
                 </label>
@@ -130,7 +130,7 @@ const Cards = () => {
                   content="Click to Update Profile"
                   placement="top"
                 >
-                <label>
+                <label style={{ cursor: "pointer" }}>
                   <img src={imageName.default} height="200px" alt="img" style={{ display: "inline-block",position: "relative" }}  />
                   <CInput type="file" name="image" accept="image/*" multiple={false} onChange={imageHandler}   style={{ display: "none" }}/>
                 </label>
