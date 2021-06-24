@@ -22,3 +22,7 @@ Q
 !src/views/widgets/WidgetsBrand.js,c\4\c4c65aa22f32ade687012a8fad1680d58a6195b7
 J
 src/views/charts/Charts.js,5\9\5965ef98e52554d903cf51d2f50cbdf51c8d3548
+U
+%src/views/dashboard/Home Page/rfid.js,3\0\30995873672906626b2ab0b4d9e6ea9c533c08e4
+l
+<src/views/dashboard/Overtime Management/Employee Overtime.js,e\6\e66f17f63fc697958a9a2577c4a66b30c87d63ca

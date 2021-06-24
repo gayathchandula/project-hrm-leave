@@ -9,6 +9,7 @@ import {
   CLabel,
   CSpinner,
   CButton,
+  CTooltip,
   CInput, CAlert
 } from '@coreui/react'
 import axios from "axios";
@@ -115,16 +116,25 @@ const Cards = () => {
 
             <CCardBody>
               {image ? (
+                <CTooltip
+                  content="Click to Update Profile"
+                  placement="top"
+                >
                 <label>
-                  <img src={image} height="200px" alt="img" style={{ display: "inline-block",position: "relative" }}  title="Click to Update Profile"/>
+                  <img src={image} height="200px" alt="img" style={{ display: "inline-block",position: "relative" }}  />
                   <CInput type="file" name="image" accept="image/*" multiple={false} onChange={imageHandler}   style={{ display: "none" }}/>
                 </label>
+                </CTooltip>
               ) : (
-
+                <CTooltip
+                  content="Click to Update Profile"
+                  placement="top"
+                >
                 <label>
-                  <img src={imageName.default} height="200px" alt="img" style={{ display: "inline-block",position: "relative" }}  title="Click to Update Profile"/>
+                  <img src={imageName.default} height="200px" alt="img" style={{ display: "inline-block",position: "relative" }}  />
                   <CInput type="file" name="image" accept="image/*" multiple={false} onChange={imageHandler}   style={{ display: "none" }}/>
                 </label>
+                </CTooltip>
               )
               }
 
