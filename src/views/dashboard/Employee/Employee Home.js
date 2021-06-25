@@ -84,9 +84,15 @@ const Cards = () => {
       },
      //credentials: 'include',
     })
-      .then(res => res.json())
+      .then(res => {
+      if (res.status === 200) {
+        window.location.reload();
+        res.json()
+      }
+    })
       .catch(error =>{
         console.log(error)
+        alert('Error please try again');
       })
   }
 
