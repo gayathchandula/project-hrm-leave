@@ -131,8 +131,8 @@ const Cards = () => {
                   placement="top"
                 >
                 <label style={{ cursor: "pointer" }}>
-                  <img src={imageName.default} height="200px" alt="img" style={{ display: "inline-block",position: "relative" }}  />
                   <CInput type="file" name="image" accept="image/*" multiple={false} onChange={imageHandler}   style={{ display: "none" }}/>
+                  <img src={imageName.default} height="200px" alt="img" style={{ display: "inline-block",position: "relative" }}  />
                 </label>
                 </CTooltip>
               )
