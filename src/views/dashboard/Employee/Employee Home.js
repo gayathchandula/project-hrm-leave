@@ -62,16 +62,8 @@ const Cards = () => {
       const result2 = await axios(
         `https://hrm-innovigent.herokuapp.com/api/v1/organizations/${id}/profile/image/get`,headers
       );
-      {result2.data.data.createImage ? (
-        setimage( 'https://hrm-innovigent.herokuapp.com/' + result2.data.data.createImage.imagePath)
-      ) : (
 
-        setimage('')
-      )
-      }
-
-
-
+      setimage( 'https://hrm-innovigent.herokuapp.com/' + result2.data.data.createImage.imagePath)
       setLoading(false);
     };
     fetchData();
@@ -115,28 +107,17 @@ const Cards = () => {
           <CCard>
 
             <CCardBody>
-              {image ? (
+
                 <CTooltip
                   content="Click to Update Profile"
                   placement="top"
                 >
                 <label style={{ cursor: "pointer" }}>
+                  <CInput type="file" name="image" accept="image/*" multiple={false} onChange={imageHandler}   style={{ display: "none" }}/>
                   <img src={image} height="200px" alt="img" style={{ display: "inline-block",position: "relative" }}  />
-                  <CInput type="file" name="image" accept="image/*" multiple={false} onChange={imageHandler}   style={{ display: "none" }}/>
                 </label>
                 </CTooltip>
-              ) : (
-                <CTooltip
-                  content="Click to Update Profile"
-                  placement="top"
-                >
-                <label style={{ cursor: "pointer" }}>
-                  <CInput type="file" name="image" accept="image/*" multiple={false} onChange={imageHandler}   style={{ display: "none" }}/>
-                  <img src={imageName.default} height="200px" alt="img" style={{ display: "inline-block",position: "relative" }}  />
-                </label>
-                </CTooltip>
-              )
-              }
+
 
 
 

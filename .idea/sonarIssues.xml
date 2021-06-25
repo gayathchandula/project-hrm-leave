@@ -8,6 +8,21 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../project-hrm-client-Mujeeb-work/src/App.js">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../project-hrm-client-Mujeeb-work/src/containers/_nav.js">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../project-hrm-client-Mujeeb-work/src/routes.js">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../project-hrm-client-Mujeeb-work/src/views/charts/Charts.js">
           <value>
             <set />
@@ -33,7 +48,17 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../project-hrm-client-Mujeeb-work/src/views/dashboard/Employee/Employee.js">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../project-hrm-client-Mujeeb-work/src/views/dashboard/Home Page/rfid.js">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../project-hrm-client-Mujeeb-work/src/views/dashboard/Leave Management/unauthleave.js">
           <value>
             <set />
           </value>
