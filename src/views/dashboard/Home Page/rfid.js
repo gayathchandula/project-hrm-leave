@@ -5,7 +5,7 @@ import {
   CButton,
   CRow,
 } from '@coreui/react'
-
+import logo from '../../../assets/animation_640_kqng99bo.gif'
 
 const Tables = () => {
 const [loading,setLoading] = useState(false);
@@ -19,8 +19,9 @@ const [loading,setLoading] = useState(false);
 
   if (loading) {
     return (
-      <div style={{ padding: "10px 20px", textAlign: "center", justifyContent:"center", display:"flex", alignItems:"center", width:"100%", height:"100vh"}}>
-        <ClimbingBoxLoader color={"#235ed9"} loading={loading} size={30} />
+      <div style={{ padding: "10px 20px", textAlign: "center", justifyContent:"center", display:"flex", alignItems:"center", width:"100%", height:"100vh", backgroundColor:"#FFFFFF"}}>
+        {/*<ClimbingBoxLoader color={"#235ed9"} loading={loading} size={30} />*/}
+        <img src={logo} alt="loading..." />
       </div>
     )
   }

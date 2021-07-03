@@ -26,3 +26,9 @@ i
 9src/views/dashboard/Leave Management/Leave application.js,8\f\8f76089f586e367de803e30b5cfb308835fe1c37
 ]
 -src/views/dashboard/Employee/Employee Home.js,7\5\751904b8c4eeed35bfe640db8b764fee4fdc614f
+`
+0src/views/dashboard/Home Page/Change Password.js,8\e\8ee14a676ddbea18ee6e3beffeda78a43208da3d
+<
+package.json,7\0\7030d0b2f71b999ff89a343de08c414af32fc93a
+Y
+)src/views/dashboard/Home Page/Settings.js,e\7\e78fa67d318e8e4609acdff44e9b7ae959501ddb
