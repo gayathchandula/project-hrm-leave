@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {Link } from 'react-router-dom';
-import ClimbingBoxLoader from "react-spinners/ClimbingBoxLoader";
 import {
   CButton,
   CRow,
@@ -20,7 +19,6 @@ const [loading,setLoading] = useState(false);
   if (loading) {
     return (
       <div style={{ padding: "10px 20px", textAlign: "center", justifyContent:"center", display:"flex", alignItems:"center", width:"100%", height:"100vh", backgroundColor:"#FFFFFF"}}>
-        {/*<ClimbingBoxLoader color={"#235ed9"} loading={loading} size={30} />*/}
         <img src={logo} alt="loading..." />
       </div>
     )
